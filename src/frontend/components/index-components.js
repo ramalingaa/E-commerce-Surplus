@@ -1,4 +1,4 @@
-import Navbar from "./NavBar/NabBar";
+import Navbar from "./NavBar/NavBar";
 import UserProfile from "./NavBar/UserProfile"
 import Category from "./Home/Category"
 import HeroSection from "./Home/HeroSection"
