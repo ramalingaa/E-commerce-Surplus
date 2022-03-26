@@ -30,8 +30,8 @@ export default function Navbar() {
           <input
             type="text"
             className="i-text navbar-input-search"
-            placeholder="Search for products, brands and more"
-            onChange = {(e) => dispatch({type:"SEARCH_FILTER", payload:e.target.value})} onKeyPress={(e) => e.key === "Enter" && navigate("/Product")}/>
+            placeholder="Search for products"
+            onChange = {(e) => dispatch({type:"SEARCH_FILTER", payload:e.target.value})} onKeyPress={(e) => e.key === "Enter" && navigate("/products")}/>
         </div>
         <div className="navbar-cart">
           

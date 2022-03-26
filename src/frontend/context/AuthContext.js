@@ -5,7 +5,6 @@ const useAuthContext = () => useContext(AuthContext)
 const AuthProvider = ({children}) => {
     const token = localStorage.getItem("JWT_TOKEN")
     const user = localStorage.getItem("USER_PROFILE")
-    console.log(JSON.parse(user))
     const [ userProfileData, setUserProfileData] = useState(() =>{
         if(user){
             return JSON.parse(user);
