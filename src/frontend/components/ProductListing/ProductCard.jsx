@@ -1,13 +1,15 @@
 import React from 'react'
 
 import { useState } from 'react'
-import { ProductList, Filter } from "../index-components"
+import { ProductList, Filter, WishlistToast, CartToast } from "../index-components"
+import { useAuthContext } from "../../context/context-index"
 
 
 
 export default function ProductCard({serverData}) {
 
   const [cardDisplay, setCardDisplay] = useState("product-container")
+  const { toastDisplay, cartToast } = useAuthContext()
   return (
     <div className="product-container-main">
         <Filter setCardDisplay = {setCardDisplay}/>
@@ -27,6 +29,11 @@ export default function ProductCard({serverData}) {
             }
         </div>
         </div>
+        {toastDisplay.added && <WishlistToast text = "added to"/>}
+        {toastDisplay.removed && <WishlistToast text = "removed from"/>}
+        { cartToast.added && <CartToast text = "added to"/>}
+        { cartToast.removed && <CartToast text = "removed to"/>}
+
     </div>
   )
 }

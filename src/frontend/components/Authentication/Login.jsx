@@ -26,6 +26,22 @@ export default function Login() {
             console.log(e)
         }
     }
+    const loginGuest = async () => {
+
+        try {
+            const guestData = {email:"ramalinga.kalagotla@gmail.com", password:"123456"}
+            const response = await axios.post("/api/auth/login",guestData)
+            localStorage.setItem("JWT_TOKEN",response.data.encodedToken)
+            localStorage.setItem("USER_PROFILE",JSON.stringify(response.data.foundUser))
+            setJwtToken(() =>response.data.encodedToken)
+            setUserProfileData(() =>response.data.foundUser )
+            navigate("/products")
+
+        }catch(e) {
+            console.log(e)
+        }
+    }
+    
   return (
     <div className = "login-page-wrapper">
         <div className = "login-card-wrapper">
@@ -43,6 +59,7 @@ export default function Login() {
                 <p className = "login-forgotPassword">Forgot password ?</p>
             </Link>
             <button className = "btn primary" onClick = {loginUser}>Login</button>
+            <button className = "btn primary" onClick = {loginGuest}>Login as a Guest</button>
             <Link to = "/signup"><p className = "login-header create-account">Create new Account</p></Link>
         </div>
     </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem,wishItem, jwtToken, navigate) {
+export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem,wishItem, jwtToken, navigate, setToastDisplay) {
 
   return () => {
    if( jwtToken ){
@@ -17,6 +17,8 @@ export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, 
             setWishIcon("");
             dispatch({type:"SET_WISH_DATA", payload:response.data.wishlist})
             dispatch({type:"SET_WISH_COUNTER", payload:response.data.wishlist.length})
+            setToastDisplay((prev) => ({...prev, removed:!prev.removed}))
+
             
           }
         }
@@ -43,6 +45,8 @@ export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, 
             dispatch({type:"SET_WISH_DATA", payload:response.data.wishlist})
             setWishIcon("icon-selected");
             dispatch({type:"SET_WISH_COUNTER", payload:response.data.wishlist.length})
+            setToastDisplay((prev) => ({...prev, added:!prev.added}))
+
           }
           catch (e) {
             console.log("Adding to wishlist failed", e);
@@ -56,13 +60,12 @@ export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, 
         (async () => {
           try {
             
-            const newWishData = wishData.filter((ele) => ele._id !== wishItem._id)
             const response = await axios.delete(`/api/user/wishlist/${wishItem._id}`,{headers: {
               authorization: jwtToken,
             }});
             setIsWishItem(false);
             setWishIcon("");
-          
+            setToastDisplay((prev) => ({...prev, removed:!prev.removed}))
             dispatch({type:"SET_WISH_DATA", payload:response.data.wishlist})
             dispatch({type:"SET_WISH_COUNTER", payload:response.data.wishlist.length})
 
