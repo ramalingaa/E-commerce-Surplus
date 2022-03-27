@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken) {
+export function decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken, setCartToast) {
 
   return () => {
     if (Number(cartItem.qty) > 1) {
@@ -42,7 +42,7 @@ export function decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken) {
           )
           dispatch({type:"SET_CART_DATA", payload:response.data.cart})
           dispatch({type:"SET_CART_COUNTER", payload:response.data.cart.length})
-
+          setCartToast((prev) => ({...prev, removed:!prev.removed}))
           setIsCartItem(false);
         }
         catch (e) {

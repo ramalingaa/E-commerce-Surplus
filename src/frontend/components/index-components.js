@@ -11,5 +11,9 @@ import ProductList from "./ProductListing/ProductList"
 import ForgotPassword from "./Authentication/ForgotPassword"
 import Login from "./Authentication/Login"
 import Signup from "./Authentication/Signup"
+import WishCard from "./Wishlist/WishCard"
+import Wishlist from "./Wishlist/Wishlist"
+import CartToast from "./Toast/CartToast"
+import WishlistToast from "./Toast/WishlistToast"
 
-export { Navbar, UserProfile, Category, HeroSection, Home, NewArrival, Filter, Product, ProductCard, ProductList, ForgotPassword, Login, Signup}
+export { Navbar, UserProfile, Category, HeroSection, Home, NewArrival, Filter, Product, ProductCard, ProductList, ForgotPassword, Login, Signup, WishCard, Wishlist, CartToast, WishlistToast}

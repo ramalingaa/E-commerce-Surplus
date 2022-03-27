@@ -14,7 +14,7 @@ export default function ProductList({pInfo, wishPage}) {
   
   const { state, dispatch } = useProductContext()
     const { cartData, wishData, singleProduct } = state
-  const {jwtToken } = useAuthContext()
+  const {jwtToken, setToastDisplay, setCartToast } = useAuthContext()
   const navigate = useNavigate()
 
   
@@ -37,14 +37,14 @@ export default function ProductList({pInfo, wishPage}) {
   },[cartData])
   
  // Wishlist icon button functionality on click of button
-  const addToWishList = addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem, wishItem, jwtToken, navigate)
+  const addToWishList = addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem, wishItem, jwtToken, navigate, setToastDisplay)
 
     //Add to cart button functionality goes here
-    const addToCart = addToCartFunction(pInfo, dispatch, jwtToken, navigate)
+    const addToCart = addToCartFunction(pInfo, dispatch, jwtToken, navigate, setCartToast)
     //Incrementing the quantity of cart items
     const incrementCartItems = incrementFunction( pInfo, cartItem, dispatch, jwtToken)
     //decrementing the quantity of cart items
-    const decrementCartItems = decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken)
+    const decrementCartItems = decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken, setCartToast)
     // redirecting to single product page on click
     const updateProductPage = () => {
       dispatch({type:"SET_SINGLE_PRODUCT", payload: pInfo});
