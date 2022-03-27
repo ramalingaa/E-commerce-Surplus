@@ -1,13 +1,12 @@
 import axios from "axios";
 
-export function incrementFunction( pInfo, cartItem = pInfo, dispatch, jwtToken) {
+export function incrementFunction(dispatch, jwtToken, cartItem) {
 
   return () => {
-    console.log(cartItem._id);
+    
     (async () => {
-      try {
-      
 
+      try {
          const response = await axios.post(`/api/user/cart/${cartItem._id}`, {
           action: {
             type: "increment",

@@ -35,14 +35,14 @@ export default function Navbar() {
         </div>
         <div className="navbar-cart">
           
-            {jwtToken ? <button onClick = {toggleProfileCard}><i className="far fa-user nav-icon"></i></button> : <Link to = "/Login"><button className="btn primary">Login</button></Link>}
+            {jwtToken ? <button onClick = {toggleProfileCard}><i className="far fa-user nav-icon"></i></button> : <Link to = "/login"><button className="btn primary">Login</button></Link>}
             {profileDisplay && <UserProfile setProfileDisplay = {setProfileDisplay}/>}
           
             <Link to = {jwtToken ? "/wishlist" :"/login"} ><div className="page-links wish-list">Wishlist
               <i className="far fa-heart nav-icon wish-icon"></i> {jwtToken && <p className="wish-counter">{wishCounter}</p>}
               </div>
             </Link>
-            <Link to = {jwtToken ? "/Cart" :"/login"} >
+            <Link to = {jwtToken ? "/cart" :"/login"} >
               <div className="page-links cart-icon">Cart 
                <i className="fas fa-cart-plus nav-icon "></i> {jwtToken && <p className="wish-counter">{cartCounter}</p>}
                </div>

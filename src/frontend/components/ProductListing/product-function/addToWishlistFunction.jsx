@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export function addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem,wishItem, jwtToken, navigate, setToastDisplay) {
+export function addToWishlistFunction(wishPage, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem,wishItem, jwtToken, navigate, setToastDisplay) {
 
   return () => {
    if( jwtToken ){
