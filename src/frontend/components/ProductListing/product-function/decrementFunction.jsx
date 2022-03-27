@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken, setCartToast) {
+export function decrementFunction(cartItem, dispatch, jwtToken, setCartToast, setIsCartItem = "") {
 
   return () => {
     if (Number(cartItem.qty) > 1) {
@@ -43,7 +43,7 @@ export function decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken, s
           dispatch({type:"SET_CART_DATA", payload:response.data.cart})
           dispatch({type:"SET_CART_COUNTER", payload:response.data.cart.length})
           setCartToast((prev) => ({...prev, removed:!prev.removed}))
-          setIsCartItem(false);
+          setIsCartItem && setIsCartItem(false);
         }
         catch (e) {
           console.log("Adding to wishlist failed", e);

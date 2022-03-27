@@ -37,14 +37,14 @@ export default function ProductList({pInfo, wishPage}) {
   },[cartData])
   
  // Wishlist icon button functionality on click of button
-  const addToWishList = addToWishlistFunction(wishPage, wishData, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem, wishItem, jwtToken, navigate, setToastDisplay)
+  const addToWishList = addToWishlistFunction(wishPage, pInfo, setIsWishItem, setWishIcon, dispatch, isWishItem, wishItem, jwtToken, navigate, setToastDisplay)
 
     //Add to cart button functionality goes here
     const addToCart = addToCartFunction(pInfo, dispatch, jwtToken, navigate, setCartToast)
     //Incrementing the quantity of cart items
-    const incrementCartItems = incrementFunction( pInfo, cartItem, dispatch, jwtToken)
+    const incrementCartItems = incrementFunction( dispatch, jwtToken, cartItem)
     //decrementing the quantity of cart items
-    const decrementCartItems = decrementFunction(cartItem, dispatch, setIsCartItem, jwtToken, setCartToast)
+    const decrementCartItems = decrementFunction(cartItem, dispatch, jwtToken, setCartToast, setIsCartItem)
     // redirecting to single product page on click
     const updateProductPage = () => {
       dispatch({type:"SET_SINGLE_PRODUCT", payload: pInfo});

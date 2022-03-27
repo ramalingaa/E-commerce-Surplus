@@ -5,4 +5,3 @@ export { getSearchData } from "./getSearchData"
 export { getSortedData } from "./getSortByData"
 export { productReducer } from "./productReducer"
 
-
