@@ -49,7 +49,9 @@ export default function ProductList({pInfo, wishPage}) {
     const updateProductPage = () => {
       dispatch({type:"SET_SINGLE_PRODUCT", payload: pInfo});
     }
-
+    const goToCart = () => {
+      navigate("/cart")
+    }
   return (
     <div className = "product-card">
         <Link to = "/SPP"><img src={pInfo.image} alt="mens Shirt" className="res-img product-img" onClick = {updateProductPage}/></Link>
@@ -60,7 +62,7 @@ export default function ProductList({pInfo, wishPage}) {
         {!wishPage && (isWishItem ?(<button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon icon-selected`}></i></button> ): (<button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon`}></i></button>))}
 
         { !(isCartItem) && <button className="btn primary card-button" onClick = {addToCart}>Add to Cart</button>}
-        {isCartItem && (
+        {(isCartItem && !wishPage) && (
         <div className="added-cart-wrapper">
           <button onClick = {decrementCartItems} className=" quantity-btn"><i className="fas fa-minus"></i></button>
           <p>Quantity: {cartItem.qty}</p>
@@ -68,6 +70,7 @@ export default function ProductList({pInfo, wishPage}) {
         </div>
         )
         }
+        {wishPage && (isCartItem && <button className="btn primary card-button" onClick = {goToCart}>Go to Cart</button>)}
         {wishPage && <button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon icon-selected`}></i></button>}
     </div>
   )
