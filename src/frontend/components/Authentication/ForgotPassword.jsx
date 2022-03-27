@@ -9,7 +9,6 @@ export default function ForgotPassword() {
     const [isPasswordMatch, setISPasswordMatch] = useState(true)
     const [newUserData, setNewUserData] = useState({ password:""})
 
-    const { jwtToken, setJwtToken } = useAuthContext()
     const navigate  = useNavigate()
 
     const toggleDisplayPassword = () => {
