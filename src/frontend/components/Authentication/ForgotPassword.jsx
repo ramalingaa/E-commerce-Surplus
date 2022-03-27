@@ -1,21 +1,19 @@
 import React from 'react'
 import { useState } from "react"
-import { useAuthContext } from '../../context/context-index'
 import { Link, useNavigate } from "react-router-dom"
 
 
 export default function ForgotPassword() {
-    const [showPassword, setShowPassword] = useState({password:false, reEnterPasswrod:false})
+    const [showPassword, setShowPassword] = useState({password:false, reEnterPassword:false})
     const [isPasswordMatch, setISPasswordMatch] = useState(true)
     const [newUserData, setNewUserData] = useState({ password:""})
 
-    const navigate  = useNavigate()
 
     const toggleDisplayPassword = () => {
         setShowPassword((prev) => ({...prev, password:!(prev.password)}))
     }
     const toggleReDisplayPassword = () => {
-        setShowPassword((prev) => ({...prev, reEnterPasswrod:!(prev.reEnterPasswrod)}))
+        setShowPassword((prev) => ({...prev, reEnterPassword:!(prev.reEnterPassword)}))
     }
     const checkPassword = (e) => {
         newUserData.password === e.target.value ? setISPasswordMatch(() => true) : setISPasswordMatch(() => false)
@@ -37,9 +35,9 @@ export default function ForgotPassword() {
                 
             </label>
             <label className = "input-label password-wrapper">
-                <input type = {showPassword.reEnterPasswrod ? "text" : "password"} placeholder = " " className = "i-text input-name login-input" onChange = {checkPassword}/>
+                <input type = {showPassword.reEnterPassword ? "text" : "password"} placeholder = " " className = "i-text input-name login-input" onChange = {checkPassword}/>
                 <span  className = "input-placeholder">Re Enter New Password</span>
-                <button className = "show-password" onClick = {toggleReDisplayPassword}>{showPassword.reEnterPasswrod ? <i className="fas fa-eye "></i> : <i className="fas fa-eye-slash"></i>}</button>
+                <button className = "show-password" onClick = {toggleReDisplayPassword}>{showPassword.reEnterPassword ? <i className="fas fa-eye "></i> : <i className="fas fa-eye-slash"></i>}</button>
                 {!isPasswordMatch && <p className ="error-msg">Passwords don't match</p>}
             </label>
            
