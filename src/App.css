@@ -330,3 +330,277 @@ a {
 
 }
 /* Home css ends here */
+/* product filter css starts here */
+.product-filter-section {
+  min-width: 20rem;
+  min-height:100vh;
+  width: 100%;
+  padding: 2rem 1rem 5rem 2rem;
+}
+.display-none {
+  display: none;
+}
+.display-block {
+  display: block;
+}
+.product-filter-heading {
+  display: flex;
+  justify-content: space-between;
+}
+.price-range-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0;
+}
+.filter-resetBtn {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: inherit;
+}
+.price-slider {
+  width: 100%;
+}
+.price-range-values {
+  display: flex;
+  justify-content: space-between;
+}
+.check-lists {
+  margin: 0;
+  border: 0;
+}
+.check-lists li {
+  padding: 0;
+}
+
+.input-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.input-filter-container >ul > li >label > input{
+  margin: 0 1rem 0 0  ;
+}
+
+
+.filterButton {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid grey;
+  background-color:white;
+  z-index: 1;
+}
+.filter-icon {
+  padding: 0 0.5rem 0 0;
+}
+.filter-button {
+  color: #333;
+}
+
+
+@media only screen and  (min-width: 1220px){
+  .product-filter-section {
+      width: 20rem;
+      min-height:100vh;
+      padding: 2rem 1rem 5rem 2rem;
+  }
+  .filterButton {
+      display:none
+  }
+}
+/* filter css ends here */
+
+/* // product css starts here */
+
+.product-card {
+  text-align: center;
+  position: relative;
+  margin: 0 0.2rem;
+  height:max-content;
+  border: 1px solid var(--div-background-color);
+}
+.product-wishlist-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.7rem;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 999rem;
+  cursor: pointer;
+  background-color: white;
+}
+.icon-selected {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: red;
+      color: red;
+}
+.product-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1rem;
+  padding: 1rem 0 0 0 ;
+}
+.products-number-title {
+  padding: 1rem 0 ;
+  text-align: center;
+}
+.product-img {
+  width: 100%;
+  height: 10rem;
+  background-color: rgb(223, 223, 223);
+}
+.card-button {
+  width: 100%;
+  margin: 0;
+}
+.added-cart-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  width: 90%;
+  align-items: center;
+  margin: auto;
+}
+.quantity-btn {
+  padding: 0.5rem;
+  border: 1px solid #333;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: transparent;
+  color:#333;
+  font-size: 0.5rem;
+
+}
+@media only screen and (min-width:620px){
+  .product-container {
+      grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media only screen and (min-width:870px){
+  .product-card {
+    width: 24%;
+  }
+  .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+      
+  }
+  .product-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+@media only screen and (min-width:1220px){
+  .product-container-main {
+      display: flex;
+      gap: 1rem;
+      height:100vh
+  }
+  .product-title-wrapper {
+    display: flex;
+   flex-direction: column;
+   width: 70%;
+  }
+  .product-title-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .card-button {
+      width: 100%;
+  }
+  .product-container {
+      width: 100%;
+      
+  }
+  .product-img {
+      height: 15rem;
+    
+  }
+}
+/* Product css ends here */
+
+/* Authentication css starts here */
+.input-label {
+  position: relative;
+  display: inline-block;
+}
+.input-name {
+  padding: 1rem;
+}
+.input-placeholder {
+  position: absolute;
+  top:1rem;
+  left:1rem;
+  padding: 0.2rem;
+  transition: 0.2s;
+  background-color:white;
+  transition-timing-function: ease;
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.input-name:focus + .input-placeholder, .input-name:not(:placeholder-shown) + .input-placeholder {
+  opacity: 1;
+  transform: scale(1) translateY(-110%) translateX(0%)
+}
+.login-page-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  justify-content:center;
+}
+.login-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 40%;
+  padding: 2rem;
+  border: 1px solid var(--div-background-color)
+
+}
+.login-input {
+  width: 100%;
+}
+.login-header {
+  text-align: center;
+
+}
+.login-forgotPassword {
+  color: red;
+}
+.error-msg {
+  color: red;
+}
+.rememberMe-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
+  padding: 0 0.5rem;
+}
+.remember-checkbox {
+  margin: 0 0.5rem 0 0;
+}
+.create-account {
+  text-decoration: underline;
+}
+.password-wrapper {
+  position: relative;
+}
+.show-password {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color:transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Authentication css ends here */
