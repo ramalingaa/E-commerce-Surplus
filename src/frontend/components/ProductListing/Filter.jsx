@@ -46,7 +46,8 @@ export default function Filter({setCardDisplay}){
             <aside className={`product-filter-section ${filterDisplay}`}>
                 <div className="product-filter-heading">
                     <p className="fw-7">Filters</p>
-                    <button onClick = {showFilterSection} className = "filter-resetBtn">Close</button>
+                    { isDivideLarge ? <button onClick = {() => dispatch({type:"RESET_FILTER"})} className = "filter-resetBtn">Clear</button> : <button onClick = {showFilterSection} className = "filter-resetBtn">Close</button>}
+                    
                 </div>
                 <div className="price-range-container">
                         <p className="fw-7">Price</p>

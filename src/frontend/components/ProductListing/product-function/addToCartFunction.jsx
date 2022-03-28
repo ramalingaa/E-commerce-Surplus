@@ -25,7 +25,7 @@ export function addToCartFunction(pInfo, dispatch, jwtToken, navigate, setCartTo
       })();
     }
     else {
-      navigate("/Login")
+      navigate("/login")
     }
    
   };

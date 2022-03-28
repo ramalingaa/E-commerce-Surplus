@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import  axios  from 'axios';
 import { useProductContext, useAuthContext } from "../../context/context-index"
 import { incrementFunction, decrementFunction } from "../ProductListing/product-function/product-fun-index"
+import { addToWishFromCartFunction } from '../index-components';
 
 export default function CartCard({pInfo}) {
   
@@ -23,27 +23,7 @@ export default function CartCard({pInfo}) {
   const incrementCartItems = incrementFunction(dispatch, jwtToken, pInfo)
   const decrementCartItems = decrementFunction(pInfo, dispatch, jwtToken, setCartToast)
   
-  const addToWishlist = () => {
-    (async () => {
-      try {
-        const response = await axios.post("/api/user/wishlist", {product:{...pInfo}}, {
-          headers: {
-            authorization: jwtToken,
-          }
-        }
-        );
-        setToastDisplay((prev) => ({...prev, added:!prev.added}))
-
-        dispatch({type:"SET_WISH_DATA", payload:response.data.wishlist})
-        dispatch({type:"SET_WISH_COUNTER", payload:response.data.wishlist.length})
-        setWishlistBtn(() => "Wishlisted")
-        
-      }
-      catch (e) {
-        console.log("Adding to wishlist failed", e);
-      }
-    })();
-  }
+  const addToWishlist = addToWishFromCartFunction(pInfo, jwtToken, setToastDisplay, dispatch, setWishlistBtn)
 const updateProductSize = (e) => {
   pInfo.size = e.target.value
 }
@@ -77,3 +57,4 @@ const updateProductSize = (e) => {
     </div>
   )
 }
+
