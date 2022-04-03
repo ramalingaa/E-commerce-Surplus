@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function AddNewAddress({setPage}) {
+export default function AddNewAddress({setFormDisplay}) {
     const openAddressForm = ()=> {
-        setPage((prev)=>!prev)
+      setFormDisplay((prev)=>!prev)
       }
   return (
     <div className="add-new-button">

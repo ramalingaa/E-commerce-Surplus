@@ -5,6 +5,7 @@ import { useAuthContext } from '../../context/context-index'
 import { Link, useNavigate } from "react-router-dom"
 
 export default function Login() {
+    const [rememberMe, setRememberMe] = useState(false)
     const [userData, setUserData] = useState({email:"", password:""})
     const { setJwtToken, setUserProfileData } = useAuthContext()
     const navigate = useNavigate() 
@@ -16,11 +17,14 @@ export default function Login() {
 
         try {
             const response = await axios.post("/api/auth/login",userData)
-            localStorage.setItem("JWT_TOKEN",response.data.encodedToken)
-            localStorage.setItem("USER_PROFILE",JSON.stringify(response.data.foundUser))
+            
             setJwtToken(() =>response.data.encodedToken)
             setUserProfileData(() =>response.data.foundUser )
             navigate("/products")
+            if(rememberMe){
+                localStorage.setItem("JWT_TOKEN",response.data.encodedToken)
+                localStorage.setItem("USER_PROFILE",JSON.stringify(response.data.foundUser))
+            }
 
         }catch(e) {
             console.log(e)
@@ -31,8 +35,10 @@ export default function Login() {
         try {
             const guestData = {email:"ramalinga.kalagotla@gmail.com", password:"123456"}
             const response = await axios.post("/api/auth/login",guestData)
-            localStorage.setItem("JWT_TOKEN",response.data.encodedToken)
-            localStorage.setItem("USER_PROFILE",JSON.stringify(response.data.foundUser))
+            if(rememberMe){
+                localStorage.setItem("JWT_TOKEN",response.data.encodedToken)
+                localStorage.setItem("USER_PROFILE",JSON.stringify(response.data.foundUser))
+            }
             setJwtToken(() =>response.data.encodedToken)
             setUserProfileData(() =>response.data.foundUser )
             navigate("/products")
@@ -41,7 +47,9 @@ export default function Login() {
             console.log(e)
         }
     }
-    
+    const rememberHandler = () => {
+        setRememberMe((prev) => !prev)
+    }
   return (
     <div className = "login-page-wrapper">
         <div className = "login-card-wrapper">
@@ -54,12 +62,12 @@ export default function Login() {
                 <input type = "password" placeholder = " " name = "password" className = "i-text input-name login-input" onChange = {updateUserData}/>
                 <span  className = "input-placeholder">Password</span>
             </label>
-            <Link to = "/resetpassword"className = "rememberMe-wrapper">
-                <label><input type = "checkbox" className = "remember-checkbox"/>Remember me</label>
-                <p className = "login-forgotPassword">Forgot password ?</p>
-            </Link>
+            <div className = "rememberMe-wrapper">
+                <label><input type = "checkbox" className = "remember-checkbox" onChange = {rememberHandler}/>Remember me</label>
+                <Link to = "/resetLinkassword"className = "login-forgotLinkassword">Forgot password ?</Link>
+            </div>
             <button className = "btn primary" onClick = {loginUser}>Login</button>
-            <button className = "btn primary" onClick = {loginGuest}>Login as a Guest</button>
+            <button className = "btn outlined" onClick = {loginGuest}>Login as a Guest</button>
             <Link to = "/signup"><p className = "login-header create-account">Create new Account</p></Link>
         </div>
     </div>

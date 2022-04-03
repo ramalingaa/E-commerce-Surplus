@@ -645,6 +645,12 @@ a {
 .cart-img {
   width: 10rem;
 }
+.coupon-btn {
+  padding: 0.3rem;
+  background-color: transparent;
+  border: 1px solid var(--primary-color-main);
+  color: var(--primary-color-main);
+}
 .cart-product-card-text-container {
   padding: 1rem 1rem;
   display: flex;
@@ -723,6 +729,7 @@ a {
   }
   .ordereSummary-wrapper {
     width: 40%;
+    text-align: center;
   }
 }
 

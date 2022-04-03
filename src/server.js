@@ -25,7 +25,8 @@ import {
 import {
   getAddressHandler,
   addItemToAddressHandler,
-  removeItemFromAddressHandler
+  removeItemFromAddressHandler,
+  updateAddressHandler,
 } from "./backend/controllers/addressController";
 import { categories } from "./backend/db/categories";
 import { products } from "./backend/db/products";
@@ -94,6 +95,7 @@ export function makeServer({ environment = "development" } = {}) {
       //address routes(private)
       this.get("/user/address", getAddressHandler.bind(this));
       this.post("/user/address", addItemToAddressHandler.bind(this));
+      this.post("/user/address/:productId", updateAddressHandler.bind(this));
       this.delete(
         "/user/address/:productId",
         removeItemFromAddressHandler.bind(this)

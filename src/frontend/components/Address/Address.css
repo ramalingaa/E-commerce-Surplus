@@ -81,13 +81,13 @@ input::-webkit-inner-spin-button {
     padding:0 0 0.5rem 0;
 }
 .edit-form {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right:0;
   width: 100%;
   background:rgb(247, 245, 245);
-  height: 100%;
+  min-height:100vh;
   padding: 3rem;
 }
 .edit-form >form > div> div > input {
@@ -114,12 +114,15 @@ input::-webkit-inner-spin-button {
 
 }
 .saved-address-wrapper {
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   border: 1px solid var(--div-background-color);
   padding:1rem;
 }
-
+.order-continue-btn {
+  text-align: center;
+  width: 30%;
+}
 @media only screen and (min-width: 768px) {
   .address-card-wrapper {
     display: flex;

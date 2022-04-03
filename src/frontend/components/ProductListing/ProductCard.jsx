@@ -21,9 +21,7 @@ export default function ProductCard({serverData}) {
             {
                 serverData.map((ele)=>{
                     return (
-                        <>
-                          <ProductList key = {ele.image} pInfo = {ele}/>
-                        </>
+                          <ProductList key = {ele._id} pInfo = {ele}/>
                     )
                 })
             }

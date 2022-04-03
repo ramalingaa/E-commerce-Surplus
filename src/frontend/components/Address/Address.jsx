@@ -1,21 +1,15 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import "./Address.css";
-import axios from "axios";
 import { Form, SavedAddress, AddNewAddress, OrderSummary} from "../index-components";
-
+import { Link } from "react-router-dom"
+import { useAddress } from "../../context/context-index"
 
 
 export default function Address() {
-  const [page, setPage] = useState(false);
+  const { addressState } = useAddress()
+  const [formDisplay, setFormDisplay] = useState(false);
   const [edit, setEdit] = useState(false)
-  const [address, setAddress] = useState([]);
   const [editElement, setEditElement] = useState({});
-
-  useEffect(()=>{
-    axios.get("https://6217d5f51a1ba20cba924689.mockapi.io/api/address").then((res)=> res.status === 200 && setAddress(res.data))
-  },[])
-
-  //form input values at initial render
   const formObject = {
     name: "",
     mobile: "",
@@ -28,46 +22,34 @@ export default function Address() {
 
   return (
     <div className="address-wrapper-main">
-      <AddNewAddress setPage = {setPage}/>
+      <AddNewAddress setFormDisplay = {setFormDisplay}/>
       <div className = "address-card-wrapper">
-          
-          
-          
             <div className="saved-address-wrapper">
                 <SavedAddress
-                  address={address}
-                  setPage={setPage}
                   setEditElement={setEditElement}
-                  setAddress={setAddress}
                   setEdit = {setEdit}
                 />
-
+            </div>
+            <div className="order-continue-btn">
+            {addressState.coupon === "cb20" ?<OrderSummary discount = {20}/> :<OrderSummary discount = {0}/> }
+              
+              {!(addressState.address.length < 1) ? <Link to = "/" className = "btn primary order-btn">Continue with ORDER</Link> : <button className = "btn primary disabled">Continue with ORDER</button>}
             </div>
           
-         
-          <div>
-            <OrderSummary />
-          </div>
-          
-        </div>
+      </div>
       <div>
               {edit && (
                   <Form
-                    setPage={setPage}
-                    setAddress={setAddress}
-                    editElement={editElement}
+                  setFormDisplay={setFormDisplay}
                     formObject={editElement}
-                    address = {address}
                     edit = {edit}
                     setEdit = {setEdit}
-                    btnText = "Update Address"
                   />
                 )}
-          </div>
-      {page && (
+      </div>
+      {formDisplay && (
             <Form
-              setPage={setPage}
-              setAddress={setAddress}
+            setFormDisplay={setFormDisplay}
               formObject={formObject}
             />
           )}
