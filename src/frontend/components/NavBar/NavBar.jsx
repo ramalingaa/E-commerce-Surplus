@@ -39,14 +39,17 @@ const Navbar = () => {
               </Link>
              { jwtToken && 
              <div className = "navbar-cart">
-               <Link to = {jwtToken ? "/wishlist" :"/login"} ><div className="page-links wish-list">Wishlist
-                <i className="far fa-heart nav-icon wish-icon"></i> {jwtToken && <p className="wish-counter">{wishCounter}</p>}
+               <Link to = {jwtToken ? "/wishlist" :"/login"} >
+                 <div className="page-links wish-list">
+                   <p className = "nav-icon-text">Wishlist</p>
+                  <i className="far fa-heart nav-icon wish-icon"></i> {jwtToken && <p className="wish-counter">{wishCounter}</p>}
                 </div>
               </Link>
               <Link to = {jwtToken ? "/cart" :"/login"} >
-                <div className="page-links cart-icon">Cart 
-                <i className="fas fa-cart-plus nav-icon "></i> {jwtToken && <p className="wish-counter">{cartCounter}</p>}
-                </div>
+                <div className="page-links cart-icon">
+                  <p className = "nav-icon-text">Cart</p> 
+                  <i className="fas fa-cart-plus nav-icon "></i> {jwtToken && <p className="wish-counter">{cartCounter}</p>}
+                </div>  
               </Link>
               </div>}
               {jwtToken ? <i className="far fa-user user-icon" onClick = {toggleProfileCard}></i> : <Link to = "/login"><button className="btn primary">Login</button></Link>}
