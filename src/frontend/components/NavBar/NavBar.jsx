@@ -16,9 +16,7 @@ const Navbar = () => {
       setProfileDisplay((prev) => !prev)
     }
     return (
-      <nav>
-        
-        <div className="navbar">
+      <nav className="navbar">
           <div>
             <Link to = "/">
                 <div href="../index.html" className="navbar-logo">
@@ -54,7 +52,6 @@ const Navbar = () => {
               {jwtToken ? <button onClick = {toggleProfileCard}><i className="far fa-user "></i></button> : <Link to = "/login"><button className="btn primary">Login</button></Link>}
               {profileDisplay && <UserProfile setProfileDisplay = {setProfileDisplay}/>}
           </div>
-        </div>
       </nav>
     );
   };

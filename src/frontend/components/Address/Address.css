@@ -119,6 +119,7 @@ input::-webkit-inner-spin-button {
 .order-continue-btn {
   text-align: center;
   width: 90%;
+  margin: 0.5rem auto;
 }
 @media only screen and (min-width: 768px) {
   .address-card-wrapper {

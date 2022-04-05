@@ -59,7 +59,7 @@ const CartCard = ({pInfo}) => {
                 <button className="quantity-btn" onClick = {incrementCartItems}><i className="fas fa-plus"></i></button>
             </div>
             {wishlistBtn === "Move to Wishlist"?<button className="btn primary" onClick = {addToWishlist}>{wishlistBtn}</button>:<button className="btn disabled" disabled>{wishlistBtn}</button>}
-            <button ><i className="fas fa-times product-wishlist-icon cart-product-icon"></i></button>
+            <i className="fas fa-times product-wishlist-icon cart-product-icon"></i>
         </div>
     </div>
   )

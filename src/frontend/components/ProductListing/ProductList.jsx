@@ -65,7 +65,7 @@ const ProductList = ({pInfo, wishPage}) => {
         <p>{pInfo.productTitle}</p>
         <p>₹{pInfo.price}</p>
 
-        {!wishPage && (isWishItem ?(<button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon icon-selected`}></i></button> ): (<button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon`}></i></button>))}
+        {!wishPage && (isWishItem ?(<i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishList}></i>): (<i className={`fas fa-heart product-wishlist-icon`} onClick = {addToWishList}></i>))}
 
         { !(isCartItem) && <button className="btn primary card-button" onClick = {addToCart}>Add to Cart</button>}
         {(isCartItem && !wishPage) && (
