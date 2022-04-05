@@ -101,6 +101,10 @@ a {
   width: 90%;
   margin: auto;
 }
+.user-icon {
+  font-size:1rem;
+  cursor: pointer;
+}
 @media only screen and (min-width: 470px) {
   .btn {
     padding: 0.5rem 1rem;
@@ -147,6 +151,9 @@ a {
     font-size: 1.3rem;
     padding: 0 0.5rem 0 0;
   }
+  .navbar-cart {
+    gap: 0.9rem;
+  }
 }
 @media only screen and (min-width: 850px) {
   .btn {
@@ -154,6 +161,9 @@ a {
   }
   .navbar {
     width: 85%;
+  }
+  .user-icon {
+    font-size:1.5rem;
   }
 }
 

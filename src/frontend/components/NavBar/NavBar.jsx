@@ -49,7 +49,7 @@ const Navbar = () => {
                 </div>
               </Link>
               </div>}
-              {jwtToken ? <button onClick = {toggleProfileCard}><i className="far fa-user "></i></button> : <Link to = "/login"><button className="btn primary">Login</button></Link>}
+              {jwtToken ? <i className="far fa-user user-icon" onClick = {toggleProfileCard}></i> : <Link to = "/login"><button className="btn primary">Login</button></Link>}
               {profileDisplay && <UserProfile setProfileDisplay = {setProfileDisplay}/>}
           </div>
       </nav>
