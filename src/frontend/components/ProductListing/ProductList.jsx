@@ -77,7 +77,7 @@ const ProductList = ({pInfo, wishPage}) => {
         )
         }
         {wishPage && (isCartItem && <button className="btn primary card-button" onClick = {goToCart}>Go to Cart</button>)}
-        {wishPage && <button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon icon-selected`}></i></button>}
+        {wishPage && <i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishList}></i>}
     </div>
   )
 };
