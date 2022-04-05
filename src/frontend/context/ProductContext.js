@@ -18,9 +18,8 @@ const ProductProvider = ({children}) => {
         rating: "",
         search: ""
 
-    }, cartData:[], wishData:[], singleProduct: {}, cartCounter:0, wishCounter:0})
+    }, cartData:[], wishData:[], cartCounter:0, wishCounter:0})
 
-    
     //filter data flow functions
     
     const navSearchData = getSearchData(state.data, state.filter.search)
@@ -32,8 +31,10 @@ const ProductProvider = ({children}) => {
 
     useEffect(()=>{
         getProducts(dispatch);
-        getCartProducts(jwtToken, dispatch);
-        getWishlistProducts(jwtToken, dispatch);
+        if(jwtToken){
+            getCartProducts(jwtToken, dispatch);
+            getWishlistProducts(jwtToken, dispatch)
+        };
         dispatch({type:"SET_WISH_COUNTER", payload:state.wishData.length})
         dispatch({type:"SET_CART_COUNTER", payload:state.cartData.length})
       },[])

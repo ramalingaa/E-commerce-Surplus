@@ -3,7 +3,8 @@ import { ProductList } from "../index-components"
 import {  useProductContext} from "../../context/context-index"
 import { useNavigate } from "react-router-dom"
 
-export default function WishCard() {
+const WishCard = () => {
+  
   const [wishPage,setWishPage] = useState(true)
   const { state } = useProductContext()
   const { wishData } = state
@@ -23,4 +24,6 @@ export default function WishCard() {
         </div>}
     </div>
   )
-}
+};
+
+export default WishCard;

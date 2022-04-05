@@ -3,7 +3,8 @@ import {  useAuthContext } from "../../context/context-index"
 import { WishCard, WishlistToast, CartToast } from "../index-components"
 
 
-export default function Wishlist() {
+const Wishlist = () => {
+  
   const { toastDisplay, cartToast } = useAuthContext()
   return (
     <div className = "wishlist-wrapper">
@@ -13,4 +14,6 @@ export default function Wishlist() {
         { cartToast.added && <CartToast text = "added to"/>}
     </div>
   )
-}
+};
+
+export default Wishlist;

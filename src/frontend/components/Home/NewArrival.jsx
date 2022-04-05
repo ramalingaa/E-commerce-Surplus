@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function NewArrival() {
+const NewArrival = () => {
 
   return (
     <div className = "home-newArrival-mainWrapper">
@@ -18,5 +18,7 @@ export default function NewArrival() {
         </div>
     </div>
   )
-}
+};
+
+export default NewArrival;
 

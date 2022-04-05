@@ -25,4 +25,5 @@ import SavedAddress from "./Address/SavedAddress"
 import AddNewAddress from "./Address/AddNewAddress"
 import SingleProductCard from "./SingleProductPage/SingleProductCard"
 import { addToWishFromCartFunction } from "./Cart/addToWishFromCartFunction"
-export { Navbar, UserProfile, Category, HeroSection, Home, NewArrival, Filter, Product, ProductCard, ProductList, ForgotPassword, Login, Signup, WishCard, Wishlist, CartToast, WishlistToast, Cart, CartCard, OrderSummary, Address, AddressCard, Form, SavedAddress, AddNewAddress, SingleProductCard, addToWishFromCartFunction}
+import OrderConfirmation from "./Address/OrderConfirmation"
+export { Navbar, UserProfile, Category, HeroSection, Home, NewArrival, Filter, Product, ProductCard, ProductList, ForgotPassword, Login, Signup, WishCard, Wishlist, CartToast, WishlistToast, Cart, CartCard, OrderSummary, Address, AddressCard, Form, SavedAddress, AddNewAddress, SingleProductCard, addToWishFromCartFunction, OrderConfirmation}

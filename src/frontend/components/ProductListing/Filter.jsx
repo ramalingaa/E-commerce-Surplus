@@ -2,11 +2,11 @@ import {useState, useEffect} from "react"
 import {useMediaQuery} from "react-responsive"
 import { useProductContext } from "../../context/context-index"
 
-export default function Filter({setCardDisplay}){
+const Filter = ({setCardDisplay}) => {
 
     const [filterDisplay, setFilterDisplay] = useState("display-none")
     const isDivideLarge = useMediaQuery({query:"(min-width: 1220px)"})
-    const { dispatch } = useProductContext()
+    const { state, dispatch } = useProductContext()
     useEffect(()=>{
         if(isDivideLarge){
             setFilterDisplay('display-block')
@@ -65,9 +65,9 @@ export default function Filter({setCardDisplay}){
                 <div className="input-filter-container">
                     <p className="fw-7">Category</p>
                     <ul className="check-lists">
-                        <li><label htmlFor="men-category"><input type="checkbox" id="men-category" value = "Men"  onChange = {(e) => dispatch({type:"CAT_Men",payload:e.target.value})}/>Mens Clothing</label></li>
-                        <li><label htmlFor="women-category"><input type="checkbox"  id="women-category" value = "Women"  onChange = {(e) => dispatch({type:"CAT_Women",payload:e.target.value})}/>Women Clothing</label></li>
-                        <li><label htmlFor="kids-category"><input type="checkbox"  id="kids-category" value = "Kids"  onChange = {(e) => dispatch({type:"CAT_Kids",payload:e.target.value})}/>Kids Clothing</label></li>
+                        <li><label htmlFor="men-category"><input type="checkbox" id="men-category" value = "Men"  onChange = {(e) => dispatch({type:"CAT_MEN", payload:"Men"})} checked = {state.filter.category.men}/>Mens Clothing</label></li>
+                        <li><label htmlFor="women-category"><input type="checkbox"  id="women-category" value = "Women"  onChange = {(e) => dispatch({type:"CAT_WOMEN", payload:"Women"})} checked = {state.filter.category.women}/>Women Clothing</label></li>
+                        <li><label htmlFor="kids-category"><input type="checkbox"  id="kids-category" value = "Kids"  onChange = {(e) => dispatch({type:"CAT_KIDS", payload:"Kids"})} checked = {state.filter.category.kids}/>Kids Clothing</label></li>
                     </ul>
                 </div>
                 <div className="input-filter-container">
@@ -90,4 +90,6 @@ export default function Filter({setCardDisplay}){
         </div>
         </>
     )
-}
+};
+
+export default Filter;

@@ -3,13 +3,10 @@ import "./Address.css";
 import { useAuthContext, useAddress } from "../../context/context-index";
 
 
-export default function AddressCard({
-    ele,
-    setEditElement,
-    setEdit
-  }) {
-const { jwtToken } = useAuthContext()
-const { dispatch } = useAddress()
+const AddressCard = ({ ele,setEditElement,setEdit}) => {
+  
+    const { jwtToken } = useAuthContext()
+    const { dispatch } = useAddress()
 
     const editClickHandler = () => {
         setEdit(true)        
@@ -44,5 +41,7 @@ const { dispatch } = useAddress()
        
       </div>
     );
-  }
+  };
+
+export default AddressCard;
   

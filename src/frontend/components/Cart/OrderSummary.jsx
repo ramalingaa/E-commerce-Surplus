@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useProductContext } from "../../context/context-index"
+import { useProductContext, useAddress } from "../../context/context-index"
 
-export default function OrderSummary({discount}) {
+const OrderSummary = ({discount}) => {
     const [orderPrice, setOrderPrice] = useState({totalPrice:0,discount:discount,delivery:0,discountPriceValue:0})
     const { state } = useProductContext()
     const { cartData, cartCounter } = state
+    const { addressState, dispatch } = useAddress()
+    const { finalPrice } = addressState
+
+    
     useEffect(() => {
         orderPrice.discount = discount
     },[discount])
@@ -15,6 +19,7 @@ export default function OrderSummary({discount}) {
         const discountPrice = parseInt(Number(orderPrice.discount) * (TotalPrice/100))
         const deliveryPrice = TotalPrice > 700 ? 0 : 99
         setOrderPrice((prev) => ({...prev,totalPrice:TotalPrice,discount:discount,delivery:deliveryPrice, discountPriceValue:discountPrice}))
+        dispatch({ type: "SET_FINAL_PRICE", payload:(TotalPrice-discountPrice)})
     },[cartData, discount])
    
   return (
@@ -39,4 +44,6 @@ export default function OrderSummary({discount}) {
         
     </div>
   )
-}
+};
+
+export default OrderSummary;

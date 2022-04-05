@@ -9,9 +9,11 @@ const useAddress = () => useContext(AddressContext)
 
 const AddressProvider = ({children}) => {
     const { jwtToken } = useAuthContext()
-    const [addressState, dispatch] = useReducer(addressReducer, {address:[],coupon:""})
+    const [addressState, dispatch] = useReducer(addressReducer, {address:[],coupon:"", finalPrice:0})
+   
     useEffect(() => {
 
+      if(jwtToken){
         (async () => {
             try {
                 const response = await axios.get("/api/user/address", {
@@ -25,6 +27,7 @@ const AddressProvider = ({children}) => {
                 console.log(e)
             }
         })()
+      }
 
     }, [])
     return(

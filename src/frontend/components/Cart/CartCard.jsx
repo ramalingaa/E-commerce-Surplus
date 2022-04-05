@@ -3,11 +3,12 @@ import { useProductContext, useAuthContext } from "../../context/context-index"
 import { incrementFunction, decrementFunction } from "../ProductListing/product-function/product-fun-index"
 import { addToWishFromCartFunction } from '../index-components';
 
-export default function CartCard({pInfo}) {
-  
+const CartCard = ({pInfo}) => {
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [wishlistBtn, setWishlistBtn] = useState("Move to Wishlist")
   const { state, dispatch } = useProductContext()
-  const { cartData, wishData } = state
+  const { wishData } = state
   const { jwtToken, setCartToast, setToastDisplay } = useAuthContext()
 
 
@@ -24,13 +25,19 @@ export default function CartCard({pInfo}) {
   const decrementCartItems = decrementFunction(pInfo, dispatch, jwtToken, setCartToast)
   
   const addToWishlist = addToWishFromCartFunction(pInfo, jwtToken, setToastDisplay, dispatch, setWishlistBtn)
-const updateProductSize = (e) => {
-  pInfo.size = e.target.value
-}
+  const updateProductSize = (e) => {
+    pInfo.size = e.target.value
+  }
   return (
     <div className="cart-product-card-container">
         <div>
-          <img src = {pInfo.image} alt = "cartProduct" className="res-img cart-img "/>
+                <p className={isImageLoaded ? "hide-thumb" : "show-thumb preload-img skelton-img"}></p>
+                <img
+                    className={isImageLoaded ? "show-thumb res-img cart-img" : "hide-thumb"}
+                    alt="cartProduct"
+                    src={pInfo.image}
+                    onLoad={() => setIsImageLoaded(() => true)}
+                />
         </div>
         <div className = "cart-product-card-text-container">
             <p>{pInfo.productBrand}</p>
@@ -56,5 +63,7 @@ const updateProductSize = (e) => {
         </div>
     </div>
   )
-}
+};
+
+export default CartCard;
 

@@ -4,7 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { CartToast, WishlistToast, CartCard, OrderSummary } from '../index-components';
 
 
-export default function Cart() {
+const Cart = () => {
+  
     const { state } = useProductContext()
     const navigate  = useNavigate()
     const { cartData } = state
@@ -30,7 +31,7 @@ export default function Cart() {
             return <CartCard pInfo = {ele} key = {ele.id}/>
           })}
         </div>
-        <div className = "ordereSummary-wrapper">
+        {cartData.length > 0 && <div className = "ordereSummary-wrapper">
         <div className="order-mrp-wrapper">
             <p><i className="fal fa-tag"></i>Apply Coupons</p>
            {!couponDisplay.coupon &&  <button className = "btn coupon-btn" onClick = {toggleCouponDisplay}>Apply</button>}
@@ -42,7 +43,7 @@ export default function Cart() {
         {couponDisplay.error && <p className = "error-msg">Coupon does not exist</p>}
            {cartData.length > 0 && (addressState.coupon === "cb20" ?<OrderSummary discount = {20}/> :<OrderSummary discount = {0}/> )}
            <Link to = "/address" className = "btn primary order-btn">PLACE ORDER</Link>
-        </div>
+        </div>}
         {cartData.length < 1 && <div className = "empty-wish-wrapper">
         <img className = "empty-wishlist-image"src = "https://res.cloudinary.com/ramlinga/image/upload/v1646919491/shopping-cart-isolated-white-background_C3_AF_C2_BC_C5_93there-no-data-shopping-cart_C3_AF_C2_BC_C5_93small-bee-shopping-cart-empty-vector-122894182_f9b2m5.jpg" alt = "empty wishlist" />
         <p>Looks like you haven't added anything to your Cart.</p>
@@ -53,4 +54,6 @@ export default function Cart() {
         {toastDisplay.added && <WishlistToast text = "added to"/>}
     </div>
   )
-}
+};
+
+export default Cart;

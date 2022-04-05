@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route} from "react-router-dom"
-
-import { Navbar, Home, Product, Login, Signup, ForgotPassword, Wishlist, Cart, Address, SingleProductCard } from "./frontend/components/index-components"
+import { Navbar, Home, Product, Login, Signup, ForgotPassword, Wishlist, Cart, Address, SingleProductCard, OrderConfirmation } from "./frontend/components/index-components"
 import MockAPI from "./MockMan";
+
 function App() {
   return (
     <div>
@@ -16,8 +16,9 @@ function App() {
         <Route path = "/wishlist" element = {<Wishlist />}/>
         <Route path = "/cart" element = {<Cart />}/>
         <Route path = "/address" element = {<Address />}/>
-        <Route path = "/SPP" element = {<SingleProductCard />}/>
+        <Route path = "/products/:productId" element = {<SingleProductCard />}/>
         <Route path = "/MockMan" element = {<MockAPI />}/>
+        <Route path = "/orderconfirm" element = {< OrderConfirmation/>}/>
 
       </Routes>
     </div>

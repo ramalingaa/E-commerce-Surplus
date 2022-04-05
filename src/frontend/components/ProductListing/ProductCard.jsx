@@ -6,7 +6,7 @@ import { useAuthContext } from "../../context/context-index"
 
 
 
-export default function ProductCard({serverData}) {
+const ProductCard = ({serverData}) => {
 
   const [cardDisplay, setCardDisplay] = useState("product-container")
   const { toastDisplay, cartToast } = useAuthContext()
@@ -34,4 +34,6 @@ export default function ProductCard({serverData}) {
 
     </div>
   )
-}
+};
+
+export default ProductCard;

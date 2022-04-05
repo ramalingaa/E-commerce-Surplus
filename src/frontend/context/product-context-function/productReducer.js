@@ -11,15 +11,32 @@ const productReducer = (state, action) => {
            
             return {...state, filter:{...state.filter,priceRange:action.payload}}
         }
-        case "CAT_Men" : {
-           return {...state, filter:{...state.filter,category:{...state.filter.category,men:!state.filter.category.men}}}
+        case "CAT_MEN" : {
+            if(action.payload === "catMen"){
+                return {...state, filter:{...state.filter,category:{...state.filter.category,men:true}}}
+            }
+           if (action.payload === "Men"){
+            return {...state, filter:{...state.filter,category:{...state.filter.category,men:!state.filter.category.men}}}
+           }
+           return state
         }
-        case "CAT_Women" : {
+        case "CAT_WOMEN" : {
+            if(action.payload === "catWomen"){
+                return {...state, filter:{...state.filter,category:{...state.filter.category,women:true}}}
+            }
+           if (action.payload === "Women"){
             return {...state, filter:{...state.filter,category:{...state.filter.category,women:!state.filter.category.women}}}
+           }
+           return state
          }
-         case "CAT_Kids" : {
+         case "CAT_KIDS" : {
+            if(action.payload === "catKids"){
+                return {...state, filter:{...state.filter,category:{...state.filter.category,kids:true}}}
+            }
+           if (action.payload === "Kids"){
             return {...state, filter:{...state.filter,category:{...state.filter.category,kids:!state.filter.category.kids}}}
-
+           }
+           return state
          }
         case "RESET_FILTER" : {
             return {...state, filter:{
@@ -43,9 +60,6 @@ const productReducer = (state, action) => {
         }
         case "SET_WISH_DATA": {
             return {...state, wishData:action.payload}
-        }
-        case "SET_SINGLE_PRODUCT": {
-            return {...state, singleProduct:action.payload}
         }
         case "SET_WISH_COUNTER": {
             return {...state, wishCounter:action.payload}

@@ -4,20 +4,20 @@ import { decrementFunction, incrementFunction, addToCartFunction, addToWishlistF
 import { Link, useNavigate } from 'react-router-dom';
 
 
-export default function ProductList({pInfo, wishPage}) {
+const ProductList = ({pInfo, wishPage}) => {
   
   const [isWishItem, setIsWishItem] = useState(false)
   const [wishIcon, setWishIcon] = useState("")
   const [isCartItem, setIsCartItem] = useState(false)
   const [cartItem, setCartItem] = useState({})
   const [wishItem, setWishItem] = useState({})
-  
-  const { state, dispatch } = useProductContext()
-    const { cartData, wishData, singleProduct } = state
-  const {jwtToken, setToastDisplay, setCartToast } = useAuthContext()
-  const navigate = useNavigate()
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   
+  const { state, dispatch } = useProductContext()
+  const { cartData, wishData } = state
+  const {jwtToken, setToastDisplay, setCartToast } = useAuthContext()
+  const navigate = useNavigate()
 
   //setting the wishicon with previosly selected wishitems
   useEffect(()=>{
@@ -46,15 +46,21 @@ export default function ProductList({pInfo, wishPage}) {
     //decrementing the quantity of cart items
     const decrementCartItems = decrementFunction(cartItem, dispatch, jwtToken, setCartToast, setIsCartItem)
     // redirecting to single product page on click
-    const updateProductPage = () => {
-      dispatch({type:"SET_SINGLE_PRODUCT", payload: pInfo});
-    }
+    
     const goToCart = () => {
       navigate("/cart")
     }
   return (
     <div className = "product-card">
-        <Link to = "/SPP"><img src={pInfo.image} alt="mens Shirt" className="res-img product-img" onClick = {updateProductPage}/></Link>
+        <Link to = {`/products/${pInfo._id}`}>
+               <p className={isImageLoaded ? "hide-thumb" : "show-thumb product-img skelton-img"}></p>
+                <img
+                    className={isImageLoaded ? "show-thumb res-img product-img" : "hide-thumb"}
+                    alt="mens Shirt"
+                    src={pInfo.image}
+                    onLoad={() => setIsImageLoaded(() => true)}
+                />
+        </Link>
         <p>{pInfo.productBrand}</p>
         <p>{pInfo.productTitle}</p>
         <p>₹{pInfo.price}</p>
@@ -74,7 +80,9 @@ export default function ProductList({pInfo, wishPage}) {
         {wishPage && <button onClick = {addToWishList}><i className={`fas fa-heart product-wishlist-icon icon-selected`}></i></button>}
     </div>
   )
-}
+};
+
+export default ProductList;
 
 
 

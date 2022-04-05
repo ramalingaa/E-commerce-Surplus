@@ -1,3 +1,8 @@
+:root {
+  --skeleton-background-color:hsl(0, 0%, 95%);
+  --skeleton-final-color:hsl(0, 6%, 86%);
+  --secure-color:rgb(82, 185, 82);
+}
 /* nav bar css starts here */
 
 a {
@@ -92,6 +97,10 @@ a {
   align-items: center;
   gap: 0.1rem;
 }
+.second-search {
+  width: 90%;
+  margin: auto;
+}
 @media only screen and (min-width: 470px) {
   .btn {
     padding: 0.5rem 1rem;
@@ -161,7 +170,7 @@ a {
   background-color:var(--white-color);
   padding: 1rem;
   position:fixed;
-  right: 15rem;
+  right: 3%;
   top: 5rem;
   z-index:1;
   display: flex;
@@ -172,6 +181,25 @@ a {
 }
 /* user profile css ends here */
 /* Home css starts here */
+.preload-img {
+  width: 10rem;
+  height: 10rem;
+}
+.skelton-img {
+  animation: skelton-loading 1s linear infinite alternate;
+}
+.hide-thumb {
+  display: none;
+  
+}
+
+.video-image {
+  width: 100%;
+  height: auto;
+}
+.show-thumb {
+  display: inline-block;
+}
 .home-main-wrapper {
   width: 90%;
   margin: 2rem auto; 
@@ -190,6 +218,7 @@ a {
   text-align: center;
   width: 20%;
 }
+
 .hero-text {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -234,6 +263,14 @@ a {
   flex-direction: column;
   gap: 0.1rem;
 
+}
+@keyframes skelton-loading {
+  0% {
+    background-color: var(--skeleton-background-color);
+  }
+  100% {
+   background-color: var(--skeleton-final-color);
+ }
 }
 @media only screen and (min-width:470px){
   .cat-card-img {
@@ -447,7 +484,7 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 1rem;
-  padding: 1rem 0 0 0 ;
+  padding: 1rem 0 3rem 0 ;
 }
 .products-number-title {
   padding: 1rem 0 ;
@@ -508,7 +545,6 @@ a {
   .product-title-wrapper {
     display: flex;
    flex-direction: column;
-   width: 70%;
   }
   .product-title-wrapper::-webkit-scrollbar {
     display: none;
@@ -562,7 +598,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 40%;
+  width: 90%;
   padding: 2rem;
   border: 1px solid var(--div-background-color)
 
@@ -621,7 +657,7 @@ a {
 }
 /* toast css starts here */
 .cart-toast {
-  width: 30%;
+  width: 70%;
   position: fixed;
   bottom: 3%;
   left: 2%;
@@ -712,11 +748,26 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  overflow-y: scroll;
+  
+}
+.ordereSummary-wrapper {
+  text-align: center;
+}
+@media only screen and (min-width: 640px){
+  .cart-toast {
+    width: 40%;
+  }
+
+  .login-card-wrapper {
+    width: 80%;
+  }
 }
 @media only screen and (min-width: 768px){
   .cart-productCard-wrapper::-webkit-scrollbar {
     display: none;
+  }
+  .cart-toast {
+    width: 30%;
   }
   .cart-product-mainWrapper {
     width: 80%;
@@ -724,12 +775,27 @@ a {
     gap: 3rem;
     height:100vh
   }
+  .login-card-wrapper {
+    width: 70%;
+  }
   .cart-productCard-wrapper {
-    width: 60%
+    overflow-y: scroll;
+    width: 60%;
+
   }
   .ordereSummary-wrapper {
     width: 40%;
     text-align: center;
+  }
+}
+@media only screen and (min-width: 900px){
+  .login-card-wrapper {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 1200px){
+  .login-card-wrapper {
+    width: 40%;
   }
 }
 
@@ -804,7 +870,7 @@ a {
 
 }
 .secure-icon {
-  color: rgb(82, 185, 82)
+  color: var(--secure-color)
 }
 .product-details-wrapper {
   border-top: 1px solid var(--grey-color);
@@ -834,4 +900,19 @@ a {
     display: none;
   }
   
+}
+
+/* order success page css starts here */
+.order-success-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  height:70vh;
+  gap: 1rem;
+  width:90%;
+  margin: auto;
+}
+.success-icon {
+  color: var(--alert-success);
 }

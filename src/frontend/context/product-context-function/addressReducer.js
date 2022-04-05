@@ -6,6 +6,9 @@ const addressReducer = (state, action) => {
         case "SET_COUPON_DATA" :{
             return {...state, coupon:action.payload}
         }
+        case "SET_FINAL_PRICE" :{
+            return {...state, finalPrice:action.payload}
+        }
         default: {
             return state
         }

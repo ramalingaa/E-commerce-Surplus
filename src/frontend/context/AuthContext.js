@@ -3,20 +3,10 @@ const AuthContext = createContext({})
 const useAuthContext = () => useContext(AuthContext)
 
 const AuthProvider = ({children}) => {
-    const token = localStorage.getItem("JWT_TOKEN")
-    const user = localStorage.getItem("USER_PROFILE")
-    const [ userProfileData, setUserProfileData] = useState(() =>{
-        if(user){
-            return JSON.parse(user);
-        }else {
-            return {}
-        }
-    })
-    const [jwtToken, setJwtToken] = useState(() => {if(token){
-        return token;
-    }
-    return ""}
-    )
+
+    const token = JSON.parse(localStorage.getItem("surplus"))
+    const [ userProfileData, setUserProfileData] = useState(token?.USER_PROFILE_ECOM)
+    const [jwtToken, setJwtToken] = useState(token?.JWT_TOKEN_ECOM)
 
     const [ toastDisplay, setToastDisplay ] = useState({ added: false, removed: false })
   

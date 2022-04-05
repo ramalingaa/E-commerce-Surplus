@@ -4,57 +4,25 @@ import "./Address.css";
 import {  useState } from "react";
 import axios from "axios";
 import { useAuthContext, useAddress } from "../../context/context-index";
+import { validate } from "../utility functions/uti-index"
 
-export default function Form({
-  setFormDisplay,
-  formObject,
-  setEdit,
-  edit = false,
-}) {
+const Form = ({setFormDisplay, formObject, setEdit, edit = false,}) => {
+
   const { jwtToken } = useAuthContext()
   const { dispatch } = useAddress()
-
-
- 
   const [error, setError] = useState({})
   const [formData, setFormData] = useState(formObject)
-
   const updateFormData = (e) => {
     const {name} = e.target
     setFormData((prev) => ({...prev, [name]: e.target.value}))
   }
- const cancelForm = ()  => {
+  const cancelForm = ()  => {
     edit ? setEdit(false) : setFormDisplay(false)
- }
- const validate = () => {
-  const err = {};
-  if (!formData.name) {
-    err["name"] = "name is needed*";
   }
-  if (!formData.mobile ||!Number(formData.mobile)) {
-    err["mobile"] = "Enter valid mobile number*";
-  }
-  if (!formData.pincode || !Number(formData.pincode)) {
-    err["pincode"] = "Enter valid pincode number*";
-  }
-  if (!formData.address) {
-    err["address"] = "address is needed*";
-  }
-  if (!formData.locality) {
-    err["locality"] = "locality is needed*";
-  }
-  if (!formData.district) {
-    err["district"] = "district is needed*";
-  }
-  if (!formData.state) {
-    err["state"] = "state is needed*";
-  }
-  return err;
-};
- const formSubmit = (e) => {
-   
+
+const formSubmit = (e) => {
   e.preventDefault()
-  const errorObject = validate()
+  const errorObject = validate(formData)
   if (Object.keys(errorObject).length > 0) {
     setError(errorObject)
   }
@@ -232,4 +200,6 @@ export default function Form({
     </form>
   );
 
-}
+};
+
+export default Form;
