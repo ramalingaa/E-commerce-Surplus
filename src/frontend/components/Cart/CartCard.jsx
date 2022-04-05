@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useProductContext, useAuthContext } from "../../context/context-index"
 import { incrementFunction, decrementFunction } from "../ProductListing/product-function/product-fun-index"
 import { addToWishFromCartFunction } from '../index-components';
+import axios from 'axios';
 
 const CartCard = ({pInfo}) => {
 
@@ -19,7 +20,26 @@ const CartCard = ({pInfo}) => {
     }
   }, [])
  
- 
+ const removeCartItem = () => {
+  (async () => {
+    try {
+      
+      const response = await axios.delete(`/api/user/cart/${pInfo._id}`,
+      {
+        headers: {
+          authorization: jwtToken,
+        }
+      }
+      )
+      dispatch({type:"SET_CART_DATA", payload:response.data.cart})
+      dispatch({type:"SET_CART_COUNTER", payload:response.data.cart.length})
+      setCartToast((prev) => ({...prev, removed:!prev.removed}))
+    }
+    catch (e) {
+      console.log("Adding to wishlist failed", e);
+    }
+  })();
+ }
 
   const incrementCartItems = incrementFunction(dispatch, jwtToken, pInfo)
   const decrementCartItems = decrementFunction(pInfo, dispatch, jwtToken, setCartToast)
@@ -59,7 +79,7 @@ const CartCard = ({pInfo}) => {
                 <button className="quantity-btn" onClick = {incrementCartItems}><i className="fas fa-plus"></i></button>
             </div>
             {wishlistBtn === "Move to Wishlist"?<button className="btn primary" onClick = {addToWishlist}>{wishlistBtn}</button>:<button className="btn disabled" disabled>{wishlistBtn}</button>}
-            <i className="fas fa-times product-wishlist-icon cart-product-icon"></i>
+            <i className="fas fa-times product-wishlist-icon cart-product-icon " onClick = { removeCartItem }></i>
         </div>
     </div>
   )

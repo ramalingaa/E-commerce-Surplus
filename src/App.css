@@ -678,10 +678,8 @@ a {
 /* toast css starts here */
 .cart-toast {
   width: 70%;
-  position: fixed;
   bottom: 3%;
   left: 2%;
-  transform: ease-in-out;
   border-radius: 0.5rem;
 }
 .toast-added {

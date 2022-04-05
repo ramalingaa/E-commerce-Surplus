@@ -25,7 +25,8 @@ const Cart = () => {
 
     }
   return (
-    <div className = {cartData.length > 0 ? "cart-product-mainWrapper": ""}>
+    <div>
+      <div className = {cartData.length > 0 ? "cart-product-mainWrapper": ""}>
         <div className ="cart-productCard-wrapper">
           {cartData.map((ele)=>{
             return <CartCard pInfo = {ele} key = {ele.id}/>
@@ -49,7 +50,9 @@ const Cart = () => {
         <p>Looks like you haven't added anything to your Cart.</p>
         <button className="btn primary" onClick = {() => navigate("/products")}>Shop Now</button>
         </div>}
-        { cartToast.added && <CartToast text = "added to"/>}
+        
+    </div>
+      { cartToast.added && <CartToast text = "added to"/>}
         { cartToast.removed && <CartToast text = "removed to"/>}
         {toastDisplay.added && <WishlistToast text = "added to"/>}
     </div>
