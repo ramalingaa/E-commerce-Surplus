@@ -17,6 +17,7 @@ const Navbar = () => {
     }
     return (
       <nav>
+        
         <div className="navbar">
           <div>
             <Link to = "/">
