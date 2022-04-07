@@ -936,3 +936,22 @@ a {
 .success-icon {
   color: var(--alert-success);
 }
+
+/* error page css starts here */
+.error-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content:center;
+  align-items: center;
+  height:60vh;
+  width: 90%;
+  margin: auto;
+}
+.error404-text {
+  font-size:5rem;
+  line-height:5rem;
+  font-weight:bold;
+  letter-spacing:1rem;
+  color: var(--primary-color-main);
+}

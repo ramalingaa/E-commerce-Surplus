@@ -14,7 +14,7 @@ const WishCard = () => {
     <div className={ wishData.length > 0 ? "product-container" : ""}>
       {wishData.map((ele)=>{
         return (
-          <ProductList pInfo = {ele} key = {ele.image} wishPage= {wishPage}/>
+          <ProductList pInfo = {ele} key = {ele._id} wishPage= {wishPage}/>
         )
       })}
       {wishData.length < 1 && <div className = "empty-wish-wrapper">
