@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import axios from "axios"
-import { useAuthContext } from '../../context/context-index'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Signup() {
-    const [showPassword, setShowPassword] = useState({password:false, reEnterPasswrod:false})
+
+
+const Signup = () => {
+
+    const [showPassword, setShowPassword] = useState({password:false, reEnterPassword:false})
     const [isPasswordMatch, setISPasswordMatch] = useState(true)
+    const [error, setError] = useState({emailExist:false,blankError: false, otherError:false})
+
     const [newUserData, setNewUserData] = useState({email:"", password:"",name:""})
-    const { jwtToken, setJwtToken } = useAuthContext()
     const navigate  = useNavigate()
 
     const toggleDisplayPassword = () => {
         setShowPassword((prev) => ({...prev, password:!(prev.password)}))
     }
     const toggleReDisplayPassword = () => {
-        setShowPassword((prev) => ({...prev, reEnterPasswrod:!(prev.reEnterPasswrod)}))
+        setShowPassword((prev) => ({...prev, reEnterPassword:!(prev.reEnterPassword)}))
     }
     const updateNewUserData = (e) => {
         const { name } = e.target
@@ -24,11 +27,23 @@ export default function Signup() {
         newUserData.password === e.target.value ? setISPasswordMatch(() => true) : setISPasswordMatch(() => false)
     }
     const signupUser = async () => {
-        try {
-            await axios.post("/api/auth/signup",newUserData)
-            navigate("/login")
-        }catch (e){
-            console.log("signup failed",e)
+        if(newUserData.email && newUserData.password && newUserData.name){
+            try {
+                const response = await axios.post("/api/auth/signup",newUserData)
+                if(response.status === 201){
+                    navigate("/login")
+                }
+                
+            }catch (e){
+                if(e?.response){
+                    e.response.status === 422 && setError((prev) => ({emailExist:true,blankError: false, otherError:false}))
+                    e.response.status === 500 && setError((prev) => ({emailExist:false,blankError: false, otherError:true}))
+                }
+                
+            }
+        }
+        else {
+            setError((prev) => ({emailExist:false,blankError: true, otherError:false}))
         }
     }
     
@@ -52,15 +67,19 @@ export default function Signup() {
                 
             </label>
             <label className = "input-label password-wrapper">
-                <input type = {showPassword.reEnterPasswrod ? "text" : "password"} placeholder = " " className = "i-text input-name login-input" onChange = {checkPassword}/>
-                <span  className = "input-placeholder">Re Enter Password</span>
-                <button className = "show-password" onClick = {toggleReDisplayPassword}>{showPassword.reEnterPasswrod ? <i className="fas fa-eye "></i> : <i className="fas fa-eye-slash"></i>}</button>
-                {!isPasswordMatch && <p className = "error-msg">Passwords don't match</p>}
+                <input type = {showPassword.reEnterPassword ? "text" : "password"} placeholder = " " className = "i-text input-name login-input" onChange = {checkPassword}/>
+                <span  className = "input-placeholder">Confirm Password</span>
+                <button className = "show-password" onClick = {toggleReDisplayPassword}>{showPassword.reEnterPassword ? <i className="fas fa-eye "></i> : <i className="fas fa-eye-slash"></i>}</button>
+                {!isPasswordMatch && <p className = "login-forgotPassword">Passwords don't match</p>}
             </label>
-           
+            {error.emailExist && <p className = "login-forgotPassword">The email you entered is already Exists.</p>}
+            {error.otherError && <p className = "login-forgotPassword">Something went wrong.</p>}
+            {error.blankError && <p className = "login-forgotPassword">Please fill in required details.</p>}
             <button className = "btn primary" onClick = {signupUser}>Signup</button>
-            <Link to = "/login"><p className = "login-header create-account">Already Have an Account? Login</p></Link>
+            <Link to = "/login" className = "login-header create-account">Already Have an Account? Login</Link>
         </div>
     </div>
   )
-}
+};
+
+export default Signup;

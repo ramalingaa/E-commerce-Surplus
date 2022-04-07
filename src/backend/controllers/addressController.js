@@ -65,6 +65,50 @@ export const addItemToAddressHandler = function (schema, request) {
   }
 };
 
+// update address details
+export const updateAddressHandler = function (schema, request) {
+  
+  const userId = requiresAuth.call(this, request);
+  try {
+    if (!userId) {
+      new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+    const userAddress = schema.users.findBy({ _id: userId }).address;
+    const productId = request.params.productId;
+    const { action } = JSON.parse(request.requestBody);
+    if (action.type === "update") {
+      userAddress.forEach((product) => {
+        if (product._id === productId) {
+          product.name = action.payload.name;
+          product.mobile = action.payload.mobile;
+          product.pincode = action.payload.pincode;
+          product.address = action.payload.address;
+          product.locality = action.payload.locality;
+          product.district = action.payload.district;
+          product.state = action.payload.state;
+          product.updatedAt = formatDate();
+        }
+      }); 
+    } 
+    this.db.users.update({ _id: userId }, { address: userAddress });
+    return new Response(200, {}, { address: userAddress });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
 /**
  * This handler handles removing items to user's wishlist.
  * send DELETE Request at /api/user/wishlist
@@ -98,3 +142,5 @@ export const removeItemFromAddressHandler = function (schema, request) {
     );
   }
 };
+
+

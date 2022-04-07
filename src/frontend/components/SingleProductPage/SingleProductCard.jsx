@@ -1,54 +1,36 @@
 import React, { useState, useEffect } from 'react'
-import axios from "axios"
 import { useProductContext, useAuthContext } from "../../context/context-index"
 import { addToCartFunction } from "../ProductListing/product-function/product-fun-index"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { WishlistToast, CartToast, addToWishFromCartFunction } from "../index-components"
+import { checkItemInCart, checkItemInWishlist } from '../utility functions/uti-index';
 
 const SingleProductCard = () => {
+
     const [wishlistBtn, setWishlistBtn] = useState("Wishlist")
     const [cartBtn, setCartBtn] = useState("Add to Cart")
     const [sizeBtn, setSizeBtn] = useState("")
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
     const { state,dispatch } = useProductContext()
-    const { cartData, wishData, singleProduct } = state
+    const { cartData, wishData, data } = state
     const { jwtToken, toastDisplay, cartToast, setCartToast, setToastDisplay } = useAuthContext()
     const navigate = useNavigate()
-
-
+    const param = useParams()
+    const singleProduct = data.find((ele) => ele._id === param.productId)
+    
     useEffect(() => {
-        const isItemInWishData = wishData.filter((ele) => ele.image === singleProduct.image)
-        if(isItemInWishData.length > 0) {
-          setWishlistBtn(() => "Wishlisted")
-        }
-      }, [])
-      useEffect(() => {
-        const isItemInCartData = cartData.filter((ele) => ele.image === singleProduct.image)
-        if(isItemInCartData.length > 0) {
-            setCartBtn(() => "Go to Cart")
-        }
-      }, [])
-     
-      // const addToWishlist = () => {
-      //   (async () => {
-      //     try {
-      //       const response = await axios.post("/api/user/wishlist", {product:{...singleProduct}}, {
-      //         headers: {
-      //           authorization: jwtToken,
-      //         }
-      //       }
-      //       );
-      //       dispatch({type:"SET_WISH_DATA", payload:response.data.wishlist})
-      //       dispatch({type:"SET_WISH_COUNTER", payload:response.data.wishlist.length})
-      //       setWishlistBtn(() => "Wishlisted")
-      //     }
-      //     catch (e) {
-      //       console.log("Adding to wishlist failed", e);
-      //     }
-      //   })();
-      // }
-      const addToWishlist = addToWishFromCartFunction(singleProduct, jwtToken, setToastDisplay, dispatch, setWishlistBtn)
 
+        checkItemInWishlist(wishData, singleProduct, setWishlistBtn);
+        checkItemInCart(cartData, singleProduct, setCartBtn);
+
+      }, [])
+      
+     
+    
+      const addToWishlist = addToWishFromCartFunction(singleProduct, jwtToken, setToastDisplay, dispatch, setWishlistBtn)
       const addToCart = addToCartFunction(singleProduct,dispatch,jwtToken, navigate, setCartToast, setCartBtn)
+
       const selectSize = (e) => {
         singleProduct.size =  e.target.innerText
         setSizeBtn(() => e.target.innerText)
@@ -60,7 +42,13 @@ const SingleProductCard = () => {
 
   return (
     <div className = "single-product-wrapper">
-            <img src = {image} alt = "product" className = "res-img product-pageImg"/>
+        <p className={isImageLoaded ? "hide-thumb" : "show-thumb product-pageImg skelton-img"}></p>
+        <img
+          className={isImageLoaded ? "show-thumb res-img product-pageImg" : "hide-thumb"}
+          alt="product"
+          src={image}
+          onLoad={() => setIsImageLoaded(() => true)}
+        />
         <div className = "single-product-text">
             <p>{productTitle} by <strong>{productBrand}</strong></p>
             <p>Rating: {rating} <i className="fas fa-star rating-icon"></i></p>
@@ -99,3 +87,5 @@ const SingleProductCard = () => {
 }
 
 export default SingleProductCard
+
+

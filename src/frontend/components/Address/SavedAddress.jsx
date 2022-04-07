@@ -1,22 +1,28 @@
 import AddressCard from "./AddressCard";
+import { useAddress } from "../../context/context-index";
 
-export default function SavedAddress({ address, setPage, setEditElement, setAddress, setEdit }) {
+const SavedAddress = ({ setEditElement, setEdit }) => {
+
+  const { addressState } = useAddress()
+  const { address } = addressState
   return (
     <div className="saved-address">
-      <h3 className="saved-address-title">Saved address</h3>
-      {address.map((ele) => {
-        return (
-          <AddressCard
-            key = {ele.id}
-            ele={ele}
-            setEditElement={setEditElement}
-            setPage={setPage}
-            address={address}
-            setAddress={setAddress}
-            setEdit = {setEdit}
-          />
-        );
-      })}
+        <h3 className="saved-address-title">Your Address</h3>
+        {address.map((ele) => {
+          return (
+            <AddressCard
+              key = {ele._id}
+              ele={ele}
+              setEditElement={setEditElement}
+              setEdit = {setEdit}
+            />
+          );
+        })}
+        {
+          address.length < 1 && <p>Add Address to place your order</p>
+        }
     </div>
   );
-}
+};
+
+export default SavedAddress;

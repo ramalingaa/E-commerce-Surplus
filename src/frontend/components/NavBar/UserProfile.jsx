@@ -2,13 +2,12 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../context/context-index'
 
-export default function UserProfile({setProfileDisplay}) {
+const UserProfile = ({setProfileDisplay}) => {
     const { userProfileData, setJwtToken } = useAuthContext()
     const  navigate  = useNavigate()
 
     const logoutUser = () => {
-        localStorage.removeItem("JWT_TOKEN")
-        localStorage.removeItem("USER_PROFILE")
+        localStorage.removeItem("surplus")
         setJwtToken(() => "")
         setProfileDisplay((prev) => !prev)
         navigate("/Login")
@@ -22,4 +21,6 @@ export default function UserProfile({setProfileDisplay}) {
         <button className="btn outlined" onClick = {logoutUser}>Logout</button>
     </div>
   )
-}
+};
+
+export default UserProfile;

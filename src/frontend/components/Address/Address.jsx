@@ -1,21 +1,17 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import "./Address.css";
-import axios from "axios";
 import { Form, SavedAddress, AddNewAddress, OrderSummary} from "../index-components";
+import { useNavigate } from "react-router-dom"
+import { useAddress, useAuthContext } from "../../context/context-index"
+import { displayRazorpay } from "./checkout"
 
-
-
-export default function Address() {
-  const [page, setPage] = useState(false);
+const Address = () => {
+  const { userProfileData } = useAuthContext()
+  const { addressState } = useAddress()
+  const navigate = useNavigate()
+  const [formDisplay, setFormDisplay] = useState(false);
   const [edit, setEdit] = useState(false)
-  const [address, setAddress] = useState([]);
   const [editElement, setEditElement] = useState({});
-
-  useEffect(()=>{
-    axios.get("https://6217d5f51a1ba20cba924689.mockapi.io/api/address").then((res)=> res.status === 200 && setAddress(res.data))
-  },[])
-
-  //form input values at initial render
   const formObject = {
     name: "",
     mobile: "",
@@ -26,53 +22,42 @@ export default function Address() {
     state:""
   };
 
+  const checkoutRazorpay = () => {
+    displayRazorpay(addressState.finalPrice, userProfileData.firstName, userProfileData.email, navigate)
+  }
+
   return (
     <div className="address-wrapper-main">
-      <AddNewAddress setPage = {setPage}/>
+      <AddNewAddress setFormDisplay = {setFormDisplay}/>
       <div className = "address-card-wrapper">
-          
-          
-          
             <div className="saved-address-wrapper">
                 <SavedAddress
-                  address={address}
-                  setPage={setPage}
                   setEditElement={setEditElement}
-                  setAddress={setAddress}
                   setEdit = {setEdit}
                 />
-
             </div>
-          
-         
-          <div>
-            <OrderSummary />
-          </div>
-          
-        </div>
+            <div className="order-continue-btn">
+                {addressState.coupon === "cb20" ?<OrderSummary discount = {20}/> :<OrderSummary discount = {0}/> }
+                {!(addressState.address.length < 1) ? <button className = "btn primary order-btn" onClick = { checkoutRazorpay }>Continue to Payment</button> : <button className = "btn primary disabled">Continue with ORDER</button>}
+            </div> 
+      </div>
       <div>
-              {edit && (
-                  <Form
-                    setPage={setPage}
-                    setAddress={setAddress}
-                    editElement={editElement}
+        {edit && (<Form
+                  setFormDisplay={setFormDisplay}
                     formObject={editElement}
-                    address = {address}
                     edit = {edit}
                     setEdit = {setEdit}
-                    btnText = "Update Address"
                   />
                 )}
-          </div>
-      {page && (
+      </div>
+      {formDisplay && (
             <Form
-              setPage={setPage}
-              setAddress={setAddress}
+            setFormDisplay={setFormDisplay}
               formObject={formObject}
             />
           )}
-        
-        
     </div>
   );
-}
+};
+
+export default Address;

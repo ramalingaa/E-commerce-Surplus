@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
     const [showPassword, setShowPassword] = useState({password:false, reEnterPassword:false})
     const [isPasswordMatch, setISPasswordMatch] = useState(true)
     const [newUserData, setNewUserData] = useState({ password:""})
@@ -46,4 +46,6 @@ export default function ForgotPassword() {
         </div>
     </div>
   )
-}
+};
+
+export default ForgotPassword;

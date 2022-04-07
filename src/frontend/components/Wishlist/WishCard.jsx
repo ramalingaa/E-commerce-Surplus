@@ -3,7 +3,8 @@ import { ProductList } from "../index-components"
 import {  useProductContext} from "../../context/context-index"
 import { useNavigate } from "react-router-dom"
 
-export default function WishCard() {
+const WishCard = () => {
+  
   const [wishPage,setWishPage] = useState(true)
   const { state } = useProductContext()
   const { wishData } = state
@@ -13,7 +14,7 @@ export default function WishCard() {
     <div className={ wishData.length > 0 ? "product-container" : ""}>
       {wishData.map((ele)=>{
         return (
-          <ProductList pInfo = {ele} key = {ele.image} wishPage= {wishPage}/>
+          <ProductList pInfo = {ele} key = {ele._id} wishPage= {wishPage}/>
         )
       })}
       {wishData.length < 1 && <div className = "empty-wish-wrapper">
@@ -23,4 +24,6 @@ export default function WishCard() {
         </div>}
     </div>
   )
-}
+};
+
+export default WishCard;

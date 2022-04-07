@@ -1,61 +1,28 @@
+import { v4 as uuid } from "uuid";
+
 import "./Address.css";
 import {  useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "../../context/context-index";
+import { useAuthContext, useAddress } from "../../context/context-index";
+import { validate } from "../utility functions/uti-index"
 
-export default function Form({
-  setPage,
-  setAddress,
-  editElement = {},
-  formObject,
-  setEdit,
-  address,
-  edit = false,
-  btnText = "Add Address",
-}) {
+const Form = ({setFormDisplay, formObject, setEdit, edit = false,}) => {
+
   const { jwtToken } = useAuthContext()
-
-
- 
+  const { dispatch } = useAddress()
   const [error, setError] = useState({})
   const [formData, setFormData] = useState(formObject)
-
   const updateFormData = (e) => {
     const {name} = e.target
     setFormData((prev) => ({...prev, [name]: e.target.value}))
   }
- const cancelForm = ()  => {
-    edit ? setEdit(false) : setPage(false)
- }
- const validate = () => {
-  const err = {};
-  if (!formData.name) {
-    err["name"] = "name is needed*";
+  const cancelForm = ()  => {
+    edit ? setEdit(false) : setFormDisplay(false)
   }
-  if (!formData.mobile ||!Number(formData.mobile)) {
-    err["mobile"] = "Enter valid mobile number*";
-  }
-  if (!formData.pincode || !Number(formData.pincode)) {
-    err["pincode"] = "Enter valid pincode number*";
-  }
-  if (!formData.address) {
-    err["address"] = "address is needed*";
-  }
-  if (!formData.locality) {
-    err["locality"] = "locality is needed*";
-  }
-  if (!formData.district) {
-    err["district"] = "district is needed*";
-  }
-  if (!formData.state) {
-    err["state"] = "state is needed*";
-  }
-  return err;
-};
- const formSubmit = (e) => {
-   
+
+const formSubmit = (e) => {
   e.preventDefault()
-  const errorObject = validate()
+  const errorObject = validate(formData)
   if (Object.keys(errorObject).length > 0) {
     setError(errorObject)
   }
@@ -63,13 +30,14 @@ export default function Form({
         if(edit){
           (async ()=>{
             try {          
-                  const addressUpdated = address.map((ele)=>
-                  ele.id === editElement.id ? formData : ele)
-                  const serverResponse = await axios.put(`https://6217d5f51a1ba20cba924689.mockapi.io/api/address/${editElement.id}`,formData)
-                  if(serverResponse.status === 200){
-                    setAddress(addressUpdated)
-                    setEdit(false)
-                  }
+                 
+                  const serverResponse = await axios.post(`/api/user/address/${formObject._id}`,{action:{type:"update",payload:formData}}, {
+                    headers: {
+                      authorization: jwtToken,
+                    }
+                  })
+                  dispatch({type:"SET_ADDRESS_DATA", payload:serverResponse.data.address})
+                  setEdit((prev) => !prev)
                   
             }
             catch(e){
@@ -82,16 +50,13 @@ export default function Form({
               (async ()=>{
                 
                 try {   
-                      const serverResponse = await axios.post("/api/user/address",{product:formData}, {
+                      const serverResponse = await axios.post("/api/user/address",{product:{...formData, _id:uuid()}}, {
                         headers: {
                           authorization: jwtToken,
                         }
                       })
-                      console.log(serverResponse)
-                        setAddress((prev)=>[serverResponse.data,...prev]) 
-                        setPage(false)
-                          
-                      
+                      dispatch({type:"SET_ADDRESS_DATA", payload:serverResponse.data.address})
+                      setFormDisplay((prev) => !prev)
                     }
                 catch(e){
                         console.log("data uploading failed")
@@ -112,7 +77,7 @@ export default function Form({
               type="text"
               id="name"
               name="name"
-              defaultValue={editElement.name}
+              value={formData.name}
               onChange={updateFormData}
               placeholder = " "
             />
@@ -130,7 +95,7 @@ export default function Form({
               maxLength="10" 
               id="mobile"
               name="mobile"
-              defaultValue={editElement.mobile}
+              value={formData.mobile}
               onChange={updateFormData}
               placeholder = " "
             />
@@ -151,7 +116,7 @@ export default function Form({
               maxLength="6"
               id="pincode"
               name="pincode"
-              defaultValue={editElement.pincode}
+              value={formData.pincode}
               onChange={updateFormData}
               placeholder = " "
             />
@@ -168,7 +133,7 @@ export default function Form({
               type="text"
               id="address"
               name="address"
-              defaultValue={editElement.address}
+              value={formData.address}
               onChange={updateFormData}
               placeholder = " "
             />
@@ -184,7 +149,7 @@ export default function Form({
               type="text"
               id="locality"
               name="locality"
-              defaultValue={editElement.locality}
+              value={formData.locality}
               onChange={updateFormData}
               placeholder = " "
 
@@ -201,7 +166,7 @@ export default function Form({
               type="text"
               id="district"
               name="district"
-              defaultValue={editElement.district}
+              value={formData.district}
               onChange={updateFormData}
               placeholder = " "
 
@@ -219,7 +184,7 @@ export default function Form({
               type="text"
               id="state"
               name="state"
-              defaultValue={editElement.state}
+              value={formData.state}
               onChange={updateFormData}
               placeholder = " "
             />
@@ -230,9 +195,11 @@ export default function Form({
           </div>
 
       </div>
-      <button type="submit" className="btn primary">{btnText}</button>
+      <button type="submit" className="btn primary">{ edit ? "Update Address" : "Save Address"}</button>
       <button className="cancel-btn" onClick={cancelForm}><i class="fas fa-times"></i></button>
     </form>
   );
 
-}
+};
+
+export default Form;

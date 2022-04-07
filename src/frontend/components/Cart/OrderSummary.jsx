@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { useProductContext } from "../../context/context-index"
-import { Link } from 'react-router-dom';
+import { useProductContext, useAddress } from "../../context/context-index"
 
-export default function OrderSummary() {
-
-    const [orderPrice, setOrderPrice] = useState({totalPrice:0,discount:0,delivery:0})
+const OrderSummary = ({discount}) => {
+    const [orderPrice, setOrderPrice] = useState({totalPrice:0,discount:discount,delivery:0,discountPriceValue:0})
     const { state } = useProductContext()
     const { cartData, cartCounter } = state
+    const { addressState, dispatch } = useAddress()
+    const { finalPrice } = addressState
 
+    
+    useEffect(() => {
+        orderPrice.discount = discount
+    },[discount])
     useEffect(() => {
         const cartPriceDetails = cartData.map((ele) => Number(ele.price) * Number(ele.qty))
         const priceReducer = (prev, curr) => (prev) + (curr)
         const TotalPrice = cartPriceDetails.reduce(priceReducer,0)
-        const discountPrice = parseInt(20 * (TotalPrice/100))
+        const discountPrice = parseInt(Number(orderPrice.discount) * (TotalPrice/100))
         const deliveryPrice = TotalPrice > 700 ? 0 : 99
-        setOrderPrice((prev) => ({...prev,totalPrice:TotalPrice,discount:discountPrice,delivery:deliveryPrice}))
-    },[cartData])
+        setOrderPrice((prev) => ({...prev,totalPrice:TotalPrice,discount:discount,delivery:deliveryPrice, discountPriceValue:discountPrice}))
+        dispatch({ type: "SET_FINAL_PRICE", payload:(TotalPrice-discountPrice)})
+    },[cartData, discount])
    
   return (
     <div className = "order-summary-wrapper">
@@ -26,7 +31,7 @@ export default function OrderSummary() {
         </div>
         <div className="order-mrp-wrapper">
             <p>Discount on MRP (<small>20%</small>)</p>
-            <p>₹{orderPrice.discount} </p>
+            <p>₹{orderPrice.discountPriceValue} </p>
         </div>
         <div className="order-mrp-wrapper">
             <p>Convenience Fee </p>
@@ -34,9 +39,11 @@ export default function OrderSummary() {
         </div>
         <div className="order-mrp-wrapper total-amount-border">
             <p className = "price-details-title">Total Amount</p>
-            <p>₹{orderPrice.totalPrice - orderPrice.discount}</p>
+            <p>₹{orderPrice.totalPrice - orderPrice.discountPriceValue}</p>
         </div>
-        <Link to = "/address" className = "btn primary order-btn">PLACE ORDER</Link>
+        
     </div>
   )
-}
+};
+
+export default OrderSummary;

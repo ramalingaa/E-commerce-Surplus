@@ -1,22 +1,31 @@
 import axios from "axios";
 import "./Address.css";
+import { useAuthContext, useAddress } from "../../context/context-index";
 
-export default function AddressCard({
-    ele,
-    setEditElement,
-    setPage,
-    address,
-    setAddress,
-    setEdit
-  }) {
+
+const AddressCard = ({ ele,setEditElement,setEdit}) => {
+  
+    const { jwtToken } = useAuthContext()
+    const { dispatch } = useAddress()
 
     const editClickHandler = () => {
         setEdit(true)        
         setEditElement(ele);
     };
-    const deleteAddress = () => {
-      const addressUpdatedAfterDelete = address.filter((element)=>element.id !== ele.id)
-      axios.delete(`https://6217d5f51a1ba20cba924689.mockapi.io/api/address/${ele.id}`).then((res)=>res.status === 200 && setAddress(addressUpdatedAfterDelete))
+
+    const deleteAddress = async() => {
+      try{
+        const response = await axios.delete(`/api/user/address/${ele._id}`, {
+          headers: {
+            authorization: jwtToken,
+          }
+        })
+        dispatch({type:"SET_ADDRESS_DATA", payload:response.data.address})
+
+      }
+      catch (e) {
+        console.log(e)
+      }
     };
   
     return (
@@ -32,5 +41,7 @@ export default function AddressCard({
        
       </div>
     );
-  }
+  };
+
+export default AddressCard;
   
