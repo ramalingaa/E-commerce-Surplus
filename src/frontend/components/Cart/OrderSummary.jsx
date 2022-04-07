@@ -30,7 +30,7 @@ const OrderSummary = ({discount}) => {
             <p>₹{orderPrice.totalPrice}</p>
         </div>
         <div className="order-mrp-wrapper">
-            <p>Discount on MRP (<small>20%</small>)</p>
+            <p>Discount on MRP (<small>{discount}%</small>)</p>
             <p>₹{orderPrice.discountPriceValue} </p>
         </div>
         <div className="order-mrp-wrapper">
