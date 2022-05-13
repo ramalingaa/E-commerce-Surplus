@@ -563,8 +563,9 @@ a {
       height:100vh
   }
   .product-title-wrapper {
-    display: flex;
+   display: flex;
    flex-direction: column;
+   width:100%;
   }
   .product-title-wrapper::-webkit-scrollbar {
     display: none;

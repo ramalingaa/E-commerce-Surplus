@@ -15,6 +15,18 @@ const Navbar = () => {
     const toggleProfileCard = () => {
       setProfileDisplay((prev) => !prev)
     }
+    const debounceFunction = (delay) => {
+      let timer;
+      return function(e){
+        if(timer){
+          clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+          dispatch({type:"SEARCH_FILTER", payload:e.target.value})
+        }, delay)
+      }
+    }
+    const debounce = debounceFunction(300)
     return (
       <nav className="navbar">
           <div>
@@ -31,7 +43,7 @@ const Navbar = () => {
               type="text"
               className="i-text navbar-input-search"
               placeholder="Search for products"
-              onChange = {(e) => dispatch({type:"SEARCH_FILTER", payload:e.target.value})} onKeyPress={(e) => e.key === "Enter" && navigate("/products")}/>
+              onChange = {debounce} onKeyPress={(e) => e.key === "Enter" && navigate("/products")}/>
           </div>
           <div className="navbar-cart">
               <Link to = "/products" >

@@ -50,6 +50,22 @@ const ProductList = ({pInfo, wishPage}) => {
     const goToCart = () => {
       navigate("/cart")
     }
+    const throttleFunction = (callback, delay) => {
+      let freeze = false 
+      let timer;
+      return function(){
+        if(!freeze){
+          timer && clearTimeout(timer)
+          callback()
+          freeze = true
+          timer = setTimeout(() =>freeze = false, delay)
+        }
+      }
+    }
+    const addToCartThrottle = throttleFunction(addToCart, 1000)
+    const decrementCartItemsThrottle = throttleFunction(decrementCartItems, 1000)
+    const incrementCartItemsThrottle = throttleFunction(incrementCartItems, 1000)
+    const addToWishListThrottle = throttleFunction(addToWishList, 1000)
   return (
     <div className = "product-card">
         <Link to = {`/products/${pInfo._id}`}>
@@ -65,19 +81,19 @@ const ProductList = ({pInfo, wishPage}) => {
         <p>{pInfo.productTitle}</p>
         <p>₹{pInfo.price}</p>
 
-        {!wishPage && (isWishItem ?(<i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishList}></i>): (<i className={`fas fa-heart product-wishlist-icon`} onClick = {addToWishList}></i>))}
+        {!wishPage && (isWishItem ?(<i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishListThrottle}></i>): (<i className={`fas fa-heart product-wishlist-icon`} onClick = {addToWishListThrottle}></i>))}
 
-        { !(isCartItem) && <button className="btn primary card-button" onClick = {addToCart}>Add to Cart</button>}
+        { !(isCartItem) && <button className="btn primary card-button" onClick = {addToCartThrottle}>Add to Cart</button>}
         {(isCartItem && !wishPage) && (
         <div className="added-cart-wrapper">
-          <button onClick = {decrementCartItems} className=" quantity-btn"><i className="fas fa-minus"></i></button>
+          <button onClick = {decrementCartItemsThrottle} className=" quantity-btn"><i className="fas fa-minus"></i></button>
           <p>Quantity: {cartItem.qty}</p>
-          <button onClick = {incrementCartItems} className=" quantity-btn"><i className="fas fa-plus"></i></button>
+          <button onClick = {incrementCartItemsThrottle} className=" quantity-btn"><i className="fas fa-plus"></i></button>
         </div>
         )
         }
         {wishPage && (isCartItem && <button className="btn primary card-button" onClick = {goToCart}>Go to Cart</button>)}
-        {wishPage && <i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishList}></i>}
+        {wishPage && <i className={`fas fa-heart product-wishlist-icon icon-selected`} onClick = {addToWishListThrottle}></i>}
     </div>
   )
 };
