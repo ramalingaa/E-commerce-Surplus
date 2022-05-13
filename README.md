@@ -6,7 +6,7 @@ Surplus is an online clothing store which sells wide category of clothing items 
 ## Live Demonstration
 
 
-[The Surplus Store can be viewed here](https://e-commerce-surplus.vercel.app/)
+[The Surplus Store can be viewed here](https://e-com-surplus.vercel.app/)
 
 ## Libraries used
 
