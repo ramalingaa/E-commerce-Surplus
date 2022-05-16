@@ -23,10 +23,10 @@ const ProductProvider = ({children}) => {
     //filter data flow functions
     
     const navSearchData = getSearchData(state.data, state.filter.search)
-    const sortedData = getSortedData(navSearchData, (state.filter.sortBy))
-    const priceFilterData = getPriceFilteredData(sortedData,state.filter.priceRange)
+    const priceFilterData = getPriceFilteredData(navSearchData,state.filter.priceRange)
     const categortyFilterData = getCatFilteredData(priceFilterData,state.filter.category)
-    const filterProductsData = getfilteredProductsData(categortyFilterData, state.filter.rating)
+    const ratingFilteredData = getfilteredProductsData(categortyFilterData, state.filter.rating)
+    const filterProductsData = getSortedData(ratingFilteredData, (state.filter.sortBy))
 
 
     useEffect(()=>{
