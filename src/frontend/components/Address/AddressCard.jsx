@@ -30,7 +30,8 @@ const AddressCard = ({ ele,setEditElement,setEdit}) => {
   
     return (
       <div className = "address-card-container">
-        <strong>{ele.name}</strong>
+        <input type="radio" name = "address"/>
+         <strong>{ele.name}</strong>
         <p>{ele.address}, {ele.locality}</p>
         <p>{ele.district}, {ele.state.toUpperCase()}- {ele.pincode}</p>
         <p>Mobile: {ele.mobile}</p>

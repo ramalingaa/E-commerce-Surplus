@@ -28,7 +28,6 @@ const ProductProvider = ({children}) => {
     const ratingFilteredData = getfilteredProductsData(categortyFilterData, state.filter.rating)
     const filterProductsData = getSortedData(ratingFilteredData, (state.filter.sortBy))
 
-
     useEffect(()=>{
         getProducts(dispatch);
         if(jwtToken){
@@ -37,8 +36,8 @@ const ProductProvider = ({children}) => {
         };
         dispatch({type:"SET_WISH_COUNTER", payload:state.wishData.length})
         dispatch({type:"SET_CART_COUNTER", payload:state.cartData.length})
+        
       },[])
-     
       
     return (
         <ProductContext.Provider value = {{filterProductsData, dispatch, state}}>

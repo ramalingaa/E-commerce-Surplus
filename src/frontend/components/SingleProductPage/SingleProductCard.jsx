@@ -18,7 +18,6 @@ const SingleProductCard = () => {
     const navigate = useNavigate()
     const param = useParams()
     const singleProduct = data.find((ele) => ele._id === param.productId)
-    
     useEffect(() => {
 
         checkItemInWishlist(wishData, singleProduct, setWishlistBtn);
@@ -38,7 +37,6 @@ const SingleProductCard = () => {
       const goToCart = () => {
           navigate("/cart")
       }
-    const { image, productBrand, productTitle, price, rating} = singleProduct
 
   return (
     <div className = "single-product-wrapper">
@@ -46,13 +44,13 @@ const SingleProductCard = () => {
         <img
           className={isImageLoaded ? "show-thumb res-img product-pageImg" : "hide-thumb"}
           alt="product"
-          src={image}
+          src={singleProduct?.image}
           onLoad={() => setIsImageLoaded(() => true)}
         />
         <div className = "single-product-text">
-            <p>{productTitle} by <strong>{productBrand}</strong></p>
-            <p>Rating: {rating} <i className="fas fa-star rating-icon"></i></p>
-            <p className = "price-tag">₹{price} <small className="offer-tag">20% off</small></p>
+            <p>{singleProduct?.productTitle} by <strong>{singleProduct?.productBrand}</strong></p>
+            <p>Rating: {singleProduct?.rating} <i className="fas fa-star rating-icon"></i></p>
+            <p className = "price-tag">₹{singleProduct?.price} <small className="offer-tag">20% off</small></p>
             <p className="tax-inclusive-tag">Inclusive of all taxes</p>
             <h3 className = "size-header">Select size</h3>
             <div className = "size-btn-wrapper">
@@ -65,15 +63,15 @@ const SingleProductCard = () => {
                 {wishlistBtn === "Wishlist" ? <button className = "btn outlined product-page-btn" onClick={addToWishlist}>{wishlistBtn}</button> :<button className = "btn outlined product-page-btn disabled" disabled>{wishlistBtn}</button>}
                 {cartBtn === "Add to Cart" ? <button className = "btn primary product-page-btn"onClick={addToCart}>{cartBtn}</button> : <Link to = "/cart" className = "cart-link-align"><button className = "btn primary product-page-btn" onClick = {goToCart}>{cartBtn}</button></Link>}
             </div>
-            <p>Sold by {productBrand} Pvt.ltd</p>
+            <p>Sold by {singleProduct?.productBrand} Pvt.ltd</p>
             <p><i className="fal fa-truck-moving product-info-icon"></i><strong> Get it by time { new Date().getDate()  }-{ new Date().getMonth() + 1 }-{ new Date().getFullYear()}</strong></p>
             
-            {Number(price) < 1000 ? <p><i className="far fa-hand-holding-box product-info-icon"></i><strong>Pay on delivery is available</strong></p> : <p><i className="far fa-hand-holding-box product-info-icon"></i><strong> This item is not eligible for Pay on Delivery</strong></p>}
+            {Number(singleProduct?.price) < 1000 ? <p><i className="far fa-hand-holding-box product-info-icon"></i><strong>Pay on delivery is available</strong></p> : <p><i className="far fa-hand-holding-box product-info-icon"></i><strong> This item is not eligible for Pay on Delivery</strong></p>}
             <p><i className="fal fa-sync-alt product-info-icon"></i><strong>Easy 30 days return & exchange available</strong></p>
             <p><i className="fas fa-badge-check product-info-icon secure-icon"></i>100% Original Products</p>
             <div className="product-details-wrapper">
               <h2>Product Details</h2>
-              <p>{productTitle} by {productBrand}</p>
+              <p>{singleProduct?.productTitle} by {singleProduct?.productBrand}</p>
               <h3>Size & Fit</h3>
               <p>The model (height 6') is wearing a size M</p>
               <h3>Material & Care</h3>

@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import { addressReducer } from "./product-context-function/addressReducer"
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 import { useAuthContext } from "./context-index"
 
 const AddressContext = createContext()
@@ -12,20 +13,30 @@ const AddressProvider = ({children}) => {
     const [addressState, dispatch] = useReducer(addressReducer, {address:[],coupon:"", finalPrice:0})
    
     useEffect(() => {
-
+      
       if(jwtToken){
-        (async () => {
-            try {
-                const response = await axios.get("/api/user/address", {
-                    headers: {
-                      authorization: jwtToken,
-                    }
-                  })
-                  dispatch({type:"SET_ADDRESS_DATA", payload:response.data.address})
-
-            }catch (e) {
-                console.log(e)
-            }
+        (async ()=>{
+          const defaultAddress = {
+            name: "Ramalinga",
+            mobile: "9985444555",
+            pincode: "500078",
+            address: "Vendath road, Ashok Nager",
+            locality: "Koti",
+            district:"Hyderabad",
+            state:"Telangana"
+          };
+             
+          try {   
+                const serverResponse = await axios.post("/api/user/address",{product:{...defaultAddress, _id:uuid()}}, {
+                  headers: {
+                    authorization: jwtToken,
+                  }
+                })
+                dispatch({type:"SET_ADDRESS_DATA", payload:serverResponse.data.address})
+              }
+          catch(e){
+                  console.log("data uploading failed")
+          }
         })()
       }
 

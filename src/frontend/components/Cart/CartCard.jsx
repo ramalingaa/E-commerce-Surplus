@@ -48,6 +48,20 @@ const CartCard = ({pInfo}) => {
   const updateProductSize = (e) => {
     pInfo.size = e.target.value
   }
+  const throttleFunction = (callback, delay) => {
+    let freeze = false 
+    let timer;
+    return function(){
+      if(!freeze){
+        timer && clearTimeout(timer)
+        callback()
+        freeze = true
+        timer = setTimeout(() =>freeze = false, delay)
+      }
+    }
+  }
+  const decrementCartItemsThrottle = throttleFunction(decrementCartItems, 1000)
+  const incrementCartItemsThrottle = throttleFunction(incrementCartItems, 1000)
   return (
     <div className="cart-product-card-container">
         <div>
@@ -74,9 +88,9 @@ const CartCard = ({pInfo}) => {
             </div>
            
             <div className="cart-btn-wrapper">
-                <button className="quantity-btn" onClick = {decrementCartItems}><i className="fas fa-minus"></i></button>
+                <button className="quantity-btn" onClick = {decrementCartItemsThrottle}><i className="fas fa-minus"></i></button>
                 <p>Quantity: {pInfo.qty}</p>
-                <button className="quantity-btn" onClick = {incrementCartItems}><i className="fas fa-plus"></i></button>
+                <button className="quantity-btn" onClick = {incrementCartItemsThrottle}><i className="fas fa-plus"></i></button>
             </div>
             {wishlistBtn === "Move to Wishlist"?<button className="btn primary" onClick = {addToWishlist}>{wishlistBtn}</button>:<button className="btn disabled" disabled>{wishlistBtn}</button>}
             <i className="fas fa-times product-wishlist-icon cart-product-icon " onClick = { removeCartItem }></i>
