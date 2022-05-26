@@ -40,7 +40,7 @@ const AddressProvider = ({children}) => {
         })()
       }
 
-    }, [])
+    }, [jwtToken])
     return(
         <AddressContext.Provider value = {{ addressState, dispatch }}>
                 {children}

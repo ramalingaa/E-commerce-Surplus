@@ -12,7 +12,6 @@ const AddressCard = ({ ele,setEditElement,setEdit}) => {
         setEdit(true)        
         setEditElement(ele);
     };
-
     const deleteAddress = async() => {
       try{
         const response = await axios.delete(`/api/user/address/${ele._id}`, {
