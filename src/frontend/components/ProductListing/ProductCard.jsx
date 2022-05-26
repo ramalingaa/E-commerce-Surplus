@@ -10,18 +10,18 @@ const ProductCard = ({serverData}) => {
     <div className="product-container-main">
         <Filter setCardDisplay = {setCardDisplay}/>
         <div className ="product-title-wrapper">
-        <p className="products-number-title"><strong>Showing All Products</strong> <small>({serverData.length} Products)</small> </p>
-        
-        <div className = {cardDisplay}>
+          <p className="products-number-title"><strong>Showing All Products</strong> <small>({serverData.length} Products)</small> </p>
           
-            {
-                serverData.map((ele)=>{
-                    return (
-                          <ProductList key = {ele._id} pInfo = {ele}/>
-                    )
-                })
-            }
-        </div>
+          <div className = {cardDisplay}>
+            
+              {
+                  serverData.map((ele)=>{
+                      return (
+                            <ProductList key = {ele._id} pInfo = {ele}/>
+                      )
+                  })
+              }
+          </div>
         </div>
         
 

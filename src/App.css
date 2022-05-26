@@ -2,6 +2,7 @@
   --skeleton-background-color:hsl(0, 0%, 95%);
   --skeleton-final-color:hsl(0, 6%, 86%);
   --secure-color:rgb(82, 185, 82);
+  --form-background-color: rgba(207, 205, 205, 0.5)
 }
 /* nav bar css starts here */
 
@@ -747,6 +748,9 @@ a {
   border: 1px solid var(--div-background-color);
   padding:1rem;
   margin: 0 0 2rem 0;
+}
+.discount-applied {
+  color: var(--primary-color-red);
 }
 .order-btn {
   text-align: center;

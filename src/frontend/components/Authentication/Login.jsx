@@ -22,10 +22,7 @@ const Login = () => {
             
                 const response = await axios.post("/api/auth/login",userData)
                 if(response.status === 200){
-                    if(rememberMe){
-                        localStorage.setItem("surplus",JSON.stringify({"JWT_TOKEN_ECOM":response.data.encodedToken, "USER_PROFILE_ECOM":response.data.foundUser}))
-
-                    }
+                    localStorage.setItem("surplus",JSON.stringify({"JWT_TOKEN_ECOM":response.data.encodedToken, "USER_PROFILE_ECOM":response.data.foundUser}))
                     setJwtToken(() =>response.data.encodedToken)
                     setUserProfileData(() =>response.data.foundUser )
                     navigate(-1)
@@ -58,9 +55,7 @@ const Login = () => {
         try {
             const guestData = {email:"ramalinga.kalagotla@gmail.com", password:"123456"}
             const response = await axios.post("/api/auth/login",guestData)
-            if(rememberMe){
-                localStorage.setItem("surplus",JSON.stringify({"JWT_TOKEN_ECOM":response.data.encodedToken, "USER_PROFILE_ECOM":response.data.foundUser}))
-            }
+            localStorage.setItem("surplus",JSON.stringify({"JWT_TOKEN_ECOM":response.data.encodedToken, "USER_PROFILE_ECOM":response.data.foundUser}))
             setJwtToken(() =>response.data.encodedToken)
             setUserProfileData(() =>response.data.foundUser )
             navigate(-1)

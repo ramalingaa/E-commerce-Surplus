@@ -83,7 +83,7 @@ input::-webkit-inner-spin-button {
   left: 0;
   right:0;
   width: 100%;
-  background:var(--div-background-color);
+  background:var(--form-background-color);
   min-height:100vh;
   padding: 3rem;
 }

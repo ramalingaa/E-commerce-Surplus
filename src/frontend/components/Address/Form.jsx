@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 
 import "./Address.css";
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext, useAddress } from "../../context/context-index";
 import { validate } from "../utility functions/uti-index"
@@ -66,6 +66,7 @@ const formSubmit = (e) => {
    }
   
  }
+
   return (
     <form onSubmit={formSubmit} className={`form-wrapper form-flex edit-form`}>
       <div className="form-flex">
@@ -196,7 +197,7 @@ const formSubmit = (e) => {
 
       </div>
       <button type="submit" className="btn primary">{ edit ? "Update Address" : "Save Address"}</button>
-      <button className="cancel-btn" onClick={cancelForm}><i class="fas fa-times"></i></button>
+      <button className="cancel-btn" onClick={cancelForm}><i className="fas fa-times"></i></button>
     </form>
   );
 
