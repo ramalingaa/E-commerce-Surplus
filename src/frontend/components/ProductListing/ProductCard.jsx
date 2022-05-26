@@ -11,6 +11,7 @@ const ProductCard = ({serverData}) => {
         <Filter setCardDisplay = {setCardDisplay}/>
         <div className ="product-title-wrapper">
           <p className="products-number-title"><strong>Showing All Products</strong> <small>({serverData.length} Products)</small> </p>
+          
           <div className = {cardDisplay}>
             
               {
